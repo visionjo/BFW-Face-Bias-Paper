@@ -1,0 +1,69 @@
+\begin{figure}[t!]
+	\centering    
+	\includegraphics[trim=.6in 1.4in 2.1in 1.65in,clip,width=.8\linewidth]{images/confusion.pdf}
+		\caption{\small{\textbf{Confusion matrix.} Percent error (Rank 1) for all faces of \gls{bfw} queried against all others. Notice errors concentrate within a subgroup, consistent with the \gls{sdm} in Fig.~\ref{fig:detection-model} (\ie \gls{af} show worst performance, and is mostly confused with faces of the same demographic). This plot is evidence that while race/ethnicity may be challenging to define, the subgroups are meaningful.}}
+		\label{fig:confusion} 
+\end{figure} 
+
+\section{Results and Analysis}
+% The \gls{soa} Arcface~\cite{deng2019arcface} was used throughout to control the model across all experiments. 
+
+We experimented with multiple \gls{cnn}-based models to support our claims of variation in optimal threshold across subgroups is not model-specific, but model-agnostic. Specifically, we analyze three \glspl{cnn} variants: we encode faces using VGG-16~\cite{simonyan2014very},  50-layer residual network (\ie ResNet-50)~\cite{he2016deep}, and \gls{senet} (\ie SENet-50)~\cite{hu2018squeeze}, with results of only the latter (\ie the best performing \gls{senet}) model used throughout the main paper. Results for the other two, alongside \gls{senet} for comparison, are in the Supplemental Material.
+
+ 
+
+\glsunset{am}\glsunset{af}\glsunset{bm}\glsunset{bf}\glsunset{im}\glsunset{if}\glsunset{wm}\glsunset{wf}
+
+
+
+
+% \vspace{-2pt}
+\subsection{Score Analysis}
+Fig.~\ref{fig:detection-model} shows score distributions for faces of the same identity (\ie \emph{Genuine}) and different (\ie \emph{Imposter}), with \gls{sdm}s split by subgroup. Observe that scores of imposters  approximately distribute about a peak of zero independent of subgroup, with slightly different standard deviation. Observe that the broadness in score distribution of the \emph{genuine} pairs varies across subgroups. Asian Fem
+Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast majority of errors occurs in intra-subgroup. It is interesting to note that while the definition of  each group  based on ethnicity and race may not be crisply defined, the confusion matrix indicates that in practice the \gls{cnn} finds that the groups are effectively separate. The categories are, therefore, meaningful in the context of \gls{fr}.
+
+
+\subsection{\gls{det} analysis}
+\glsunset{m}
+\glsunset{f}
+
+\gls{det} curves averaged across 5-folds show per-subgroup trade-offs (Fig.~\ref{fig:detcurves}). Note that \gls{m} perform better than \gls{f}, precisely as one would expect from the tails of score-distributions for \emph{genuine} pairs (Fig.~\ref{fig:detection-model}). \Gls{af} and \gls{if} perform the worst.
+
+
+ 
+\begin{table}[t!]
+\glsunset{tar}
+\glsunset{far}
+\caption{\small{\textbf{\gls{tar} at intervals of \gls{far}}. For each subgroup, and overall average \gls{far}, listed are the \gls{tar} scores for a global threshold (top) and the proposed category-based threshold (bottom). Higher is better. The proposed shows improvement in all cases.}}\label{tab:ethnicy-far} 
+\include{tables/ethnicity_far}
+\glsreset{tar}
+\glsreset{far}
+\end{table}
+
+
+The gender-based \gls{det} curve shows that there are different performances for \gls{m} and \gls{f} at a fixed threshold (dashed-line). Similar effects exist for the other curves as well (lines omitted to declutter). Many \gls{fr} applications, systems are operated at the highest \gls{fpr} allowed, so the line of constant threshold indicates that a single threshold produced at different operating points (\ie \gls{fpr}) \gls{m} and \gls{f}, which is undesirable.  The difference in \gls{fpr} is approximately a factor of 2-- quite large indeed. If this kind of difference is common in industry, one would expect a factor of 3 more false positives to be reported based on one subgroup than another, which has a strong potential to be the cause of media articles reporting bias in 
+\gls{fr}~\cite{england2019,snow2018}.
+
+
+\subsection{Verification threshold} \label{subsec:analysis:verification}
+We seek to reduce the bias between subgroups. Such that an operating point (\ie \gls{fpr}) is constant across subgroups. To accomplish that, we used a per subgroup threshold. In \gls{fv}, we consider one image as the query and all others as test. For this, the ethnicity of the query image is assumed. We can then examine the \gls{det} curves and pick the best threshold per subgroup for a certain \gls{fpr}.
+
+We evaluated \gls{tar} for specific \gls{far} values. As described in Section~\ref{subsec:pf}, the verification experiments were 5-fold, with no overlap in subject ID between folds. Results reported are averaged across folds in all cases and are shown in Table~\ref{tab:ethnicy-far}. For each subgroup, the \gls{tar} of using a global-threshold is reported (upper row), as well as using the optimal per subgroup threshold (lower row). 
+
+Even for lower \gls{far}, there are notable improvements, often of the order of 1\%, which can be challenging to achieve when \gls{far} is near $\geq$90\%. More importantly, each subgroup has the desired \gls{fpr}, so that substantial differences in \gls{fpr} will remain unfounded. We further experimented using ethnicity estimators and using the ethnicity of both query and test image, which yielded similar results to those reported here (results not shown).
+
+\begin{figure}[t!] 
+	\centering    
+	\includegraphics[trim=0in 0.0in 0in 0in,clip, width=\linewidth] {images/human_eval.pdf}
+		\caption{\small{\textbf{Qualitative results of human assessment.} $\checkmark$ for \emph{match}; $\times$ for \emph{non-match}, which scores plotted next to each. Humans tend to be more successful at recognizing their own subgroup, with few exceptions (bottom). }}
+		% (\eg bottom row). } Result summary in Table~\ref{tab:human-eval}.
+		\label{fig:human-eval} 
+		\vspace{-5mm}
+\end{figure} 
+
+% \vspace{-5pt}
+\subsection{Human evaluation}
+ Quantitative and qualitative results are in Table~\ref{tab:humsn-eval-results} and Fig.~\ref{fig:human-eval}, respectfully. One might expect that the most exposure to others would be within the same subgroup, and, therefore, would be best at labeling their own. Secondarily, they would be best at labeling images of the same ethnicity, but opposite gender. Our findings concur. Each subgroup is best at labeling their type, and then second best at labeling the same ethnicity but opposite sex. Interestingly, each group of images is best tagged by the corresponding subgroup, with the second-to-best having the same ethnicity and opposite gender. On average, subgroups are comparable at labeling images. 
+
+
+

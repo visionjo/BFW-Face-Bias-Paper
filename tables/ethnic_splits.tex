@@ -1,0 +1,60 @@
+
+\scalebox{1}{
+     \resizebox{\textwidth}{!}{%
+    \begin{tabular}{r c c c c c c c c l}
+        \toprule 
+        & \multicolumn{2}{c}{Asian (A)} & \multicolumn{2}{c}{Black (B)}  & \multicolumn{2}{c}{Indian (I)}& \multicolumn{2}{c}{White (W)}\\
+        \cmidrule(l){2-3} \cmidrule(l){4-5} \cmidrule(l){6-7}\cmidrule(l){8-9} % spanning less than the full width of the table - you can add (r) or (l) just before the opening curly bracket to shorten the rule on the left or right side
+         & Female (AF) & Male (AM) & BF & BM& IF & IM & WF & WM&Aggregated\\ % Column names row
+        \midrule
+
+       \# Faces  &  2,500&  2,500& 2,500 & 2,500& 2,500 & 2,500 & 2,500 & 2,500 &20,000 \\ % row 1
+        \# Subjects & 100& 100& 100  & 100  & 100  & 100& 100 &100&800  \\ % row 2
+        \# Faces / Subject  & 25 & 25    & 25 & 25 & 25  & 25  &  25 & 25 & 25\\ % row 3
+        % \midrule
+\specialrule{.01em}{.05em}{.05em} 
+            \# Positive Pairs &  30,000&  30,000& 30,000 &30,000 & 30,000 &30,000&30,000 & 30,000 &240,000 \\ % row 1
+        \# Negative Pairs & 85,135&  85,232& 85,016  & 85,141  & 85,287  & 85,152& 85,223 &85,193&681,379  \\ % row 2
+        
+        \# Pairs (Total) & 115,135 & 115,232    &115016 &115,141 & 115287  & 115,152  &  115,223& 115193 & 921,379\\ % row 3
+        % \midrule
+        \specialrule{.01em}{.05em}{.05em} 
+        Acc$@t_g$ & 0.876 & 0.944  &0.934 &0.942 &0.922&0.949 &0.916  &0.918&0.925$\pm$0.022 \\ 
+        $t_o$ & 0.235 &  0.274 & 0.267&0.254  &0.299 & 0.295& 0.242 &0.222&0.261\\ % row 4
+        Acc$@t_o$ & 0.916 &0.964 &0.955 &0.971 &0.933 &0.958 & 0.969 &0.973 & 0.955 $\pm$ 0.018\\ 
+        \bottomrule
+    \end{tabular}}
+    \glsunset{af}
+    }
+    \glsunset{af}
+    \glsunset{am}
+    \glsunset{bf}
+    \glsunset{bm}
+    \glsunset{if}
+    \glsunset{im}    
+    \glsunset{wf}
+    \glsunset{wm}
+% \begin{table}[!t]
+%     \centering
+%     \footnotesize{
+%     \caption{\textbf{Data statistics and abbreviations for subgroups}.}
+%     \begin{tabular}{p{2.25cm} m{1cm}>{\centering} p{1.2cm}  m{1cm}>{\centering}} 
+%       Subgroup &\# Faces &\# Subjects &\# Pairs\\ % Column names row
+%         \midrule
+%         \gls{af}&2,250 & 100   &30,000 \\ % row 1
+%         \gls{am}&2,250 & 100   &30,000  \\ % row 2
+%         \gls{bf}& 2,250& 100   &30,000 \\ % row 3
+%         \gls{bm}& 2,250&   100  &30,000 \\ % row 4
+%         \gls{if}& 2,250 &  100  &30,000 \\ % row 5
+%         \gls{im}& 2,250&  100   &30,000 \\ % row 6
+%         \gls{wf}&2,250 &  100   &30,000 \\ % row 7
+%         \gls{wm}& 2,250 &  100   &30,000 \\ % row 8
+
+%         \midrule
+%         \midrule
+%         Total & 18,000 &  800    & 240,000 \\ % Summary/total row
+%         \bottomrule
+%     \end{tabular}
+%     }
+%     \label{tbl:datastats} 
+% \end{table}
