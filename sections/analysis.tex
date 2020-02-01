@@ -36,14 +36,16 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 \glsunset{tar}
 \glsunset{far}
 \caption{\small{\textbf{\gls{tar} at intervals of \gls{far}}. For each subgroup, and overall average \gls{far}, listed are the \gls{tar} scores for a global threshold (top) and the proposed category-based threshold (bottom). Higher is better. The proposed shows improvement in all cases.}}\label{tab:ethnicy-far} 
+ \vspace{-2mm}
 \include{tables/ethnicity_far}
 \glsreset{tar}
 \glsreset{far}
+ \vspace{-3mm}
+
 \end{table}
 
 
-The gender-based \gls{det} curve shows that there are different performances for \gls{m} and \gls{f} at a fixed threshold (dashed-line). Similar effects exist for the other curves as well (lines omitted to declutter). Many \gls{fr} applications, systems are operated at the highest \gls{fpr} allowed, so the line of constant threshold indicates that a single threshold produced at different operating points (\ie \gls{fpr}) \gls{m} and \gls{f}, which is undesirable.  The difference in \gls{fpr} is approximately a factor of 2-- quite large indeed. If this kind of difference is common in industry, one would expect a factor of 3 more false positives to be reported based on one subgroup than another, which has a strong potential to be the cause of media articles reporting bias in 
-\gls{fr}~\cite{england2019,snow2018}.
+The gender-based \gls{det} curve shows a difference in performances between \gls{m} and \gls{f} with a fixed threshold (dashed-line). Similar effects exist for the other curves as well (lines omitted to declutter). For many \gls{fr} applications, systems are operated at the highest \gls{fpr} allowed, so the line of constant threshold indicates that a single threshold produces different operating points (\ie \gls{fpr}), which is undesirable.  The difference in \gls{fpr} is approximately a factor of two-- quite large indeed. If this is the case in an industrial system, one would expect a difference in about double the false positives to be reported on based on subgroup alone. The potential ramifications of such a bias should not be overlooked, which it has not as of lately-- gaining interest of even main-stream media ~\cite{england2019,snow2018}.
 
 
 \subsection{Verification threshold} \label{subsec:analysis:verification}
@@ -55,7 +57,7 @@ Even for lower \gls{far}, there are notable improvements, often of the order of 
 
 \begin{figure}[t!] 
 	\centering    
-	\includegraphics[trim=0in 0.0in 0in 0in,clip, width=\linewidth] {images/human_eval.pdf}
+	\includegraphics[width=\linewidth] {images/human_eval.pdf}
 		\caption{\small{\textbf{Qualitative results of human assessment.} $\checkmark$ for \emph{match}; $\times$ for \emph{non-match}, which scores plotted next to each. Humans tend to be more successful at recognizing their own subgroup, with few exceptions (bottom). }}
 		% (\eg bottom row). } Result summary in Table~\ref{tab:human-eval}.
 		\label{fig:human-eval} 

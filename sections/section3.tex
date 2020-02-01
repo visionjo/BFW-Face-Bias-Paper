@@ -27,16 +27,11 @@ Problems of bias in \gls{fr} motivated the design of \gls{bfw}. The data evenly 
 		\caption{\textbf{\gls{det} curves.} \emph{Top-left}: per gender. \emph{Top-right}: per ethnicity. \emph{Bottom}: per subgroup (\ie combined). A dashed lined shows a difference by about 2$\times$ in \gls{fpr} for the same threshold $\theta_{const}$. \gls{fnr} is the number of match errors, so closer a curve is to the bottom better.}
 		\glsreset{det}\glsreset{fpr}
 \label{fig:detcurves} 
-\vspace{-5mm}
 \end{figure} 
 
 \vspace{1mm}
 \noindent\textbf{Validating labels.} 
 Faces of \gls{bfw} were encoded using the original implementation of the \gls{soa} Arcface~\cite{deng2019arcface}. A matrix of cosine similarity scores was then generated for each subject, and removed samples (\ie rows) with median scores below threshold $\theta=0.2$. Mathematically, the $j^{th}$ subject with $N_j$ faces is removed if the ordinal rank of its score $n = \frac{P\times N}{100}\geq\theta$, with the percentile $P=50$, $\theta=0.2$ set manually, and an ordered list of scores. This allowed us to quickly prune \gls{fp} face detections. Following~\cite{robinson2016families, robinson2018visual}, we built a JAVA tool to visually validate the remaining faces. The faces were first ordered from most-to-least confidence, with confidence set as the average score, and then displayed as image icons on top toggling buttons arranged as a grid in a sliding pane window. Labeling then consisted of going subject-by-subject and flagging faces of \emph{imposters}. 
-% Each subject underwent two passes by different annotators.
-
-%  by flagging \emph{imposters}
-
 
 
 \vspace{1mm}
@@ -45,8 +40,9 @@ Faces of \gls{bfw} were encoded using the original implementation of the \gls{so
 	\glsunset{fpr}
 	\centering
 	\centering
-	\includegraphics[trim=0.3in 0.1in 0.2in 0.2in,clip,angle=-0,origin=c,width=1\linewidth]{images/violinplots.pdf}
+	\includegraphics[width=1\linewidth]{images/violinplots.pdf}
 		\caption{\textbf{\Gls{sdm} across subgroups.} The scores for \emph{imposters} have medians about 0.3 but with variation in upper percentiles, while \emph{genuine} pairs vary in both (\eg \gls{af} has more area of overlap). A varying threshold varying across different subgroups yields a constant \gls{fpr}.} \label{fig:detection-model} 
+		
 \end{figure} 
 
 

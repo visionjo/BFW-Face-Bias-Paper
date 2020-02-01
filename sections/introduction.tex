@@ -3,17 +3,12 @@
 \glsresetall
 \section{Introduction}
 As more of society becomes integrated with \gls{ml}, bias, fairness, and the formalization of \gls{ml} standards are topics of high interest ~\cite{10.1007/978-3-030-13469-3_68, anne2018women, wang2018racial}. One effect of the growing dependency on technology is the increasing concern regarding biased and unfair algorithms.  For instance, \gls{fr} systems can be untrustworthy and racist in some cases~\cite{england2019,snow2018}.
-
-%The trust of people in machinery built to make decisions that range from casual-to-critical matters still takes time to build  . 
+. 
 
 \begin{figure}[t!]
 \centering
          \includegraphics[trim=0in 0.2in 0in 0in,clip,width=.9\linewidth]{images/montage.pdf}  
 \caption{\textbf{\gls{bfw}.} The average face of its different subsets: \emph{top-left}: the entire \gls{bfw}; \emph{top-row} per race;  \emph{left-column}: per gender. The others represent the ethnicity and gender of the race and gender, respectfully. Table~\ref{tab:ethnic-splits} defines the acronyms of subgroups.}
-% \emph{Bottom-left} average per gender.  \emph{Top-left}: average face of \gls{bfw}. Notice the distinguishable variation in face features within and across subgroups. Table~\ref{tab:ethnic-splits} defines the acronyms of subgroups.}
-% \caption{\small{\textbf{Data of BFW.} Subgroups depicted by average faces. \emph{Top-left}: average of BFW. \emph{Top-right}: averages for races,  Asian (A), Black (B), Indian (I), White (W). \emph{Bottom-left}: averages for genders, Female (F) Male (M). \emph{Bottom-Right}: combined, \gls{af}, \gls{am}, \gls{bf}, \gls{bm}, \gls{if}, \gls{im}, \gls{wf}, \gls{wm}. 
-% \emph{Top-left}: average face of \gls{bfw}.
-% Notice the distinguishable variation in face features within and between subgroups.}}
 \label{fig:avg-faces}
 % \vspace{-3pt}
 \end{figure}
@@ -25,9 +20,6 @@ A fixed threshold acts as a decision boundary in similarity score space. Thus, t
 
 \begin{table*}[t!]
 \scriptsize
-    % \glsunset{bfw}
-    % \glsunset{rfw}
-    % \glsunset{dp}
     \centering
        \caption{\textbf{The proposed \gls{bfw} compared to related datasets.} \gls{bfw} is exactly balanced across ID, gender, and ethnicity (Table~\ref{tab:ethnic-splits}). Compared with \gls{dp}, \gls{bfw} provides more samples per subject and subgroups per set. Also, \gls{bfw} uses a single resource, VGG2. \gls{rfw}, on the other hand, supports a different task (\ie domain adaptation). Furthermore, \gls{rfw} focuses on race-distribution across of pairs, while not considering the distribution of identities. }
     \begin{tabular}{rccccccc}%x{10mm}x{3mm}x{10mm}x{8mm}}%\toprule
@@ -39,7 +31,6 @@ A fixed threshold acts as a decision boundary in similarity score space. Thus, t
     \gls{rfw}~\cite{wang2018racial}     &  MS-Celeb-1M &\approx80,000&\approx12,000& 4 & \xmark & \checkc &\xmark \\
     \gls{bfw} (ours) & VGG2 & 20,000 & 800 &8 & \checkc & \checkc &\checkc \\\bottomrule
     \end{tabular}
- 
     \label{tab:compared}
     \vspace{-5mm}
 \end{table*}
@@ -52,21 +43,18 @@ Making matters more challenging is that race and ethnicity are loosely defined. 
 
 To address \textbf{(2)}, the lack of a balanced data, we introduce a new benchmark for \gls{fr}, called \gls{bfw} (Table~\ref{tab:compared}, ~\ref{tab:ethnic-splits}). \gls{bfw} serves as a platform to fairly evaluate \gls{fr} systems and enable demographic-specific ratings to be reported. We use \gls{bfw} to gain a deeper understanding of the extent of bias present in facial embeddings extracted from a \gls{soa} \gls{cnn} model. We then suggest a mechanism to counter the biased feature space to mitigate problems of bias with more balanced performance ratings for different demographics, while improving the overall accuracy. Specifically, we propose using an adaptive threshold that varies depending on the characteristics of detected facial attributes (\ie gender and ethnicity, Fig~\ref{fig:avg-faces}). We show an increase in accuracy with a balanced performance for different subgroups of people. Similarly, we show the positive effect of adjusting the similarity threshold based on the facial features of matched faces. Thus, selective use of similarity thresholds in current \gls{soa} \gls{fr} systems provides more intuition in \gls{fr}-based research, while providing a method easily adoptable in practice. 
 
-% Fig.~\ref{fig:avg-faces} depicts the average face of each subgroup.
-
 
 \begin{table*}[!t]
     \centering
     \caption{\small{\textbf{Database stats and nomenclature, optimal thresholds ($t_o$), and accuracy scores.} \textit{Header:} Subgroup definitions. \textit{Top-row:} Statistics of \gls{bfw}. \textit{Middle-row:} Number of pairs for each partition. \textit{Bottom-row:} Accuracy when applying a global threshold $t_g$, the optimal threshold $t_o$, and accuracy with $t_o$ per subgroup. Columns grouped by race and then further split by gender. Out of millions of pairs, accuracy is inconsistent across subgroups. Furthermore, $F$ tend to perform inferior to that of $M$ (\ie up to 8\%).}}\label{tab:ethnic-splits}
     \include{tables/ethnic_splits}
-    %  \vspace{-5mm}t
-
+    \vspace{-12pt}
 \end{table*}
 
 
 
 
-The contributions in this paper are as follows:\footnote{Data, code, more visit \href{https://github.com/visionjo/facerec-bias-bfw}{github.com/visionjo/facerec-bias-bfw}.}
+The contributions in this paper are as follows:
 \begin{enumerate}
     \item We built a balanced dataset as a proxy to measure verification performance per subgroup.
     \item We analyzed an unwanted bias in scores of face pairs while showing that optimal thresholds determined per subgroup significantly boost and balances performances.

@@ -249,10 +249,9 @@ Face Recognition: Too Bias, or Not Too Bias?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-We reveal critical insights into problems of bias in state-of-the-art \gls{fr} systems using a novel \gls{bfw} dataset: data balanced for gender and ethnic groups. Classic signal detection theory revealed trends in the underlying score distribution across subgroups. Specifically, we show variations in the optimal scoring threshold varies for face-pairs across different subgroups. Thus, the conventional approach of learning a  global threshold for all pairs resulting in performance gaps among subgroups. By learning subgroup-specific thresholds, we not only mitigate problems in performance gaps but also show a notable boost in the overall performance. Furthermore, we do a human evaluation to measure the bias in humans, which supports the hypothesis that such a bias exists in human perception. 
+We reveal critical insights into problems of bias in state-of-the-art \gls{fr} systems using a novel \gls{bfw} dataset: data balanced for gender and ethnic groups. Classic signal detection theory revealed trends in the underlying score distribution across subgroups. Specifically, we show variations in the optimal scoring threshold varies for face-pairs across different subgroups. Thus, the conventional approach of learning a  global threshold for all pairs resulting in performance gaps among subgroups. By learning subgroup-specific thresholds, we not only mitigate problems in performance gaps but also show a notable boost in the overall performance. Furthermore, we do a human evaluation to measure the bias in humans, which supports the hypothesis that such a bias exists in human perception. To download the \gls{bfw} database, source code, and more, visit \href{https://github.com/visionjo/facerec-bias-bfw}{github.com/visionjo/facerec-bias-bfw}
 \end{abstract}
-
-
+\
 \input{sections/introduction.tex}
 
 
@@ -278,9 +277,11 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[t!]
+\begin{center}
     \caption{\small{\textbf{Quantitative of human assessment.} Different human subgroups listed per row. Each column is the subgroup labeled. Note that each people are best within their subgroup, and second-best within the same subgroup but different gender. CF shows the least variation, but with the lowest accuracy. CM shows the best accuracy, but second to \gls{wm} in deviation from the mean. Thus, scores for males vary more than females.}}
     \label{tab:humsn-eval-results} 
-\begin{center}
+     \vspace{-2mm}
+
 \footnotesize
 \scalebox{0.9}{
 \begin{tabular}{l c c c c c}
@@ -292,7 +293,7 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
         Avg &  0.433& 0.474&0.477 &0.463 &0.462\pm0.020\\
  \end{tabular}}
  \end{center}
- \vspace{-8mm}
+ \vspace{-6mm}
 \end{table} 
 
 \glsresetall
@@ -303,13 +304,8 @@ We introduce a new data set \gls{bfw} with eight subgroups balanced across gende
 
 \putbib
 \end{bibunit}
-
-
-% \newpage\newpage
-% \col
 \begin{bibunit}
 \input{supplemental.tex}
 \end{bibunit}
-% \end{comment}
 
 \end{document}
