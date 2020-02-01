@@ -59,18 +59,18 @@ To address \textbf{(2)}, the lack of a balanced data, we introduce a new benchma
     \centering
     \caption{\small{\textbf{Database stats and nomenclature, optimal thresholds ($t_o$), and accuracy scores.} \textit{Header:} Subgroup definitions. \textit{Top-row:} Statistics of \gls{bfw}. \textit{Middle-row:} Number of pairs for each partition. \textit{Bottom-row:} Accuracy when applying a global threshold $t_g$, the optimal threshold $t_o$, and accuracy with $t_o$ per subgroup. Columns grouped by race and then further split by gender. Out of millions of pairs, accuracy is inconsistent across subgroups. Furthermore, $F$ tend to perform inferior to that of $M$ (\ie up to 8\%).}}\label{tab:ethnic-splits}
     \include{tables/ethnic_splits}
-     \vspace{-5mm}
+    %  \vspace{-5mm}t
 
 \end{table*}
 
 
 
 
-The contributions in this paper are as follows:\footnote{For data, code, more visit \scriptsize{\href{https://github.com/visionjo/facerec-bias-bfw}{github.com/visionjo/facerec-bias-bfw}}.}
+The contributions in this paper are as follows:\footnote{Data, code, more visit \href{https://github.com/visionjo/facerec-bias-bfw}{github.com/visionjo/facerec-bias-bfw}.}
 \begin{enumerate}
     \item We built a balanced dataset as a proxy to measure verification performance per subgroup.
     \item We analyzed an unwanted bias in scores of face pairs while showing that optimal thresholds determined per subgroup significantly boost and balances performances.
     \item We showed bias causes inconsistencies in ratings across demographics-- the typical use of a global threshold unfavorable. We mitigate the problem via adaptive thresholds.
-    \item We conducted human-evaluations to demonstrate bias in human perception. 
+    \item We conducted human-evaluations to demonstrate bias in human perception.\footnote{NIH-certified, \textit{Protect Humans in Research}, \textcolor{red}{IRB 19-09-08}.}
 \end{enumerate}
 

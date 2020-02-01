@@ -1,16 +1,17 @@
 \begin{figure}[t!]
 	\centering    
-	\includegraphics[trim=.6in 1.4in 2.1in 1.65in,clip,width=.8\linewidth]{images/confusion.pdf}
+	\includegraphics[width=\linewidth]{images/confusion.pdf}
 		\caption{\small{\textbf{Confusion matrix.} Percent error (Rank 1) for all faces of \gls{bfw} queried against all others. Notice errors concentrate within a subgroup, consistent with the \gls{sdm} in Fig.~\ref{fig:detection-model} (\ie \gls{af} show worst performance, and is mostly confused with faces of the same demographic). This plot is evidence that while race/ethnicity may be challenging to define, the subgroups are meaningful.}}
 		\label{fig:confusion} 
+		\vspace{-5mm}
 \end{figure} 
 
 \section{Results and Analysis}
-% The \gls{soa} Arcface~\cite{deng2019arcface} was used throughout to control the model across all experiments. 
+An {\em off-the-shelf} \gls{cnn} was used throughout to control the model across all experiments. For this, Sphereface~\cite{liu2017sphereface} trained on CASIA-Web~\cite{yi2014learning}, and evaluated on \gls{lfw}~\cite{LFWTech} (\%99.22 accuracy), encoded all of the faces.\footnote{\href{https://github.com/clcarwin/sphereface_pytorch}{https://github.com/clcarwin/sphereface_pytorch}} Following~\cite{liu2017sphereface}, upon applying an affine transformation to align faces according to pre-defined eye locations, each face got fed through the network twice, the original and horizontally flipped. The two features were fused by concatenation.
 
-We experimented with multiple \gls{cnn}-based models to support our claims of variation in optimal threshold across subgroups is not model-specific, but model-agnostic. Specifically, we analyze three \glspl{cnn} variants: we encode faces using VGG-16~\cite{simonyan2014very},  50-layer residual network (\ie ResNet-50)~\cite{he2016deep}, and \gls{senet} (\ie SENet-50)~\cite{hu2018squeeze}, with results of only the latter (\ie the best performing \gls{senet}) model used throughout the main paper. Results for the other two, alongside \gls{senet} for comparison, are in the Supplemental Material.
+Additional \gls{cnn}-based models demonstrate the same phenomena: proportional to the overall model performance, exact in which the ordering subgroups in sensitivity in scores space (Appendix~\ref{app:sec:other:models}).
+% Specifically, we analyze three \glspl{cnn} variants: we encode faces using VGG-16~\cite{simonyan2014very},  50-layer residual network (\ie ResNet-50)~\cite{he2016deep}, and \gls{senet} (\ie SENet-50)~\cite{hu2018squeeze}, with results of only the latter (\ie the best performing \gls{senet}) model used throughout the main paper. Results for the other two, alongside \gls{senet} for comparison, are in the Supplemental Material.
 
- 
 
 \glsunset{am}\glsunset{af}\glsunset{bm}\glsunset{bf}\glsunset{im}\glsunset{if}\glsunset{wm}\glsunset{wf}
 
