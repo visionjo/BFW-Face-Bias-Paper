@@ -7,7 +7,7 @@
 \end{figure} 
 
 \section{Results and Analysis}
-An {\em off-the-shelf} \gls{cnn} was used throughout to control the model across all experiments. For this, Sphereface~\cite{liu2017sphereface} trained on CASIA-Web~\cite{yi2014learning}, and evaluated on \gls{lfw}~\cite{LFWTech} (\%99.22 accuracy), encoded all of the faces.\footnote{\href{https://github.com/clcarwin/sphereface_pytorch}{https://github.com/clcarwin/sphereface_pytorch}} Following~\cite{liu2017sphereface}, upon applying an affine transformation to align faces according to pre-defined eye locations, each face got fed through the network twice, the original and horizontally flipped. The two features were fused by concatenation.
+An {\em off-the-shelf} \gls{cnn} was used throughout to control the model across all experiments. For this, Sphereface~\cite{liu2017sphereface} trained on CASIA-Web~\cite{yi2014learning}, and evaluated on \gls{lfw}~\cite{LFWTech} (\%99.22 accuracy), encoded all of the faces.\footnote{\href{$https://github.com/clcarwin/sphereface\_pytorch$}{https:\/\/github.com\/clcarwin\/sphereface\_pytorch}} Following~\cite{liu2017sphereface}, upon applying an affine transformation to align faces according to pre-defined eye locations, each face got fed through the network twice, the original and horizontally flipped. The two features were fused by concatenation.
 
 Additional \gls{cnn}-based models demonstrate the same phenomena: proportional to the overall model performance, exact in which the ordering subgroups in sensitivity in scores space (Appendix~\ref{app:sec:other:models}).
 % Specifically, we analyze three \glspl{cnn} variants: we encode faces using VGG-16~\cite{simonyan2014very},  50-layer residual network (\ie ResNet-50)~\cite{he2016deep}, and \gls{senet} (\ie SENet-50)~\cite{hu2018squeeze}, with results of only the latter (\ie the best performing \gls{senet}) model used throughout the main paper. Results for the other two, alongside \gls{senet} for comparison, are in the Supplemental Material.
@@ -37,7 +37,30 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 \glsunset{far}
 \caption{\small{\textbf{\gls{tar} at intervals of \gls{far}}. For each subgroup, and overall average \gls{far}, listed are the \gls{tar} scores for a global threshold (top) and the proposed category-based threshold (bottom). Higher is better. The proposed shows improvement in all cases.}}\label{tab:ethnicy-far} 
  \vspace{-2mm}
-\include{tables/ethnicity_far}
+\begin{center}
+\begin{tabular}{l c c c c c}
+     \gls{far} & 0.3 & 0.1 & 0.01 & 0.001 & 0.0001\\\midrule
+    \multirow{2}{.1mm}{\textbf{\gls{af}}} &0.990 & 0.867 & 0.516 & 0.470 & 0.465\\[-4pt]
+        &1.000 & 0.882 & 0.524 & 0.478 & 0.474\\[-1pt]
+    \multirow{2}{3mm}{\textbf{\gls{am}}} &0.994 & 0.883 & 0.529 & 0.482 & 0.477\\[-4pt]
+        &1.000 & 0.890 & 0.533 & 0.486 & 0.482\\[-1pt]
+    \multirow{2}{3mm}{\textbf{\gls{bf}}} &0.991 & 0.870 & 0.524 & 0.479 & 0.473\\[-4pt]
+        &1.000 & 0.879 & 0.530 & 0.484 & 0.480\\[-1pt]
+    \multirow{2}{3mm}{\textbf{\gls{bm}}} &0.992 & 0.881 & 0.526 & 0.480 & 0.474\\[-4pt]
+        &1.000 & 0.891 & 0.532 & 0.485 & 0.480\\[-1pt]
+    \multirow{2}{3mm}{\textbf{\gls{if}}} &0.996 & 0.881 & 0.532 & 0.486 & 0.481\\[-4pt]
+        &1.000 & 0.884 & 0.534 & 0.488 & 0.484\\[-1pt]
+    \multirow{2}{3mm}{\textbf{\gls{im}}} &0.997 & 0.895 & 0.533 & 0.485 & 0.479\\[-4pt]
+        &1.000 & 0.898 & 0.535 & 0.486 & 0.481\\[-1pt]
+    \multirow{2}{3mm}{\textbf{\gls{wf}}} &0.988 & 0.878 & 0.517 & 0.469 & 0.464\\[-4pt]
+        &1.000 & 0.894 & 0.526 & 0.478 & 0.474\\[-1pt]
+    \multirow{2}{3mm}{\textbf{\gls{wm}}} &0.989 & 0.896 & 0.527 & 0.476 & 0.470\\[-4pt]
+        &1.000 & 0.910 & 0.535 & 0.483 & 0.478\\[-1pt]
+    \midrule
+    \multirow{2}{3mm}{\textbf{Avg.}} &0.992 & 0.881 & 0.526 & 0.478 & 0.474\\[-4pt]
+        &1.000 & 0.891 & 0.531 & 0.483 & 0.479\\[-10pt]
+\end{tabular}
+\end{center}
 \glsreset{tar}
 \glsreset{far}
  \vspace{-3mm}

@@ -12,7 +12,7 @@
 % symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{amsfonts}       % blackboard math symbols
-\usepackage{amssymb,amsthm}
+\usepackage{amssymb}
 \usepackage{amsmath}% assumes amsmath package installed
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
@@ -29,7 +29,7 @@
 \usepackage{lipsum}
 % \usepackage{slashbox}
 \usepackage{booktabs}       % professional-quality tables
-\usepackage{enumitem}
+%\usepackage{enumitem}
 \usepackage [english]{babel}
 \usepackage [autostyle, english = american]{csquotes}
 \MakeOuterQuote{"}
@@ -61,10 +61,10 @@
 \usepackage{float}% If comment this, figure moves
 \usepackage{geometry}
 
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage[]{algorithm2e}
-\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
+%\usepackage[]{algorithm2e}
+%\usepackage{amssymb}% http://ctan.org/pkg/amssymb
 \usepackage{pifont}% http://ctan.org/pkg/pifont
 
 
@@ -155,6 +155,8 @@
 \newacronym{nmse}{NMSE}{Normalized Mean Square Error}
 \newacronym{det}{DET}{Detection Error Trade-off}
 \newacronym{tp}{TP}{true-positive}
+\newacronym{fp}{FP}{false-positive}
+
 \newacronym{tpir}{TPIR}{true-positive identification rate}
 \newacronym{frir}{FRIR}{false-reject identification rate}
 \newacronym{fpir}{FRIR}{false-positive identification rate}
@@ -170,7 +172,6 @@
 \newacronym{tar}{TAR}{True Acceptance Rate}
 \newacronym{far}{FAR}{False Acceptance Rate}
 \newacronym{eer}{EER}{Equal Error Rate}
-\newacronym{det}{DET}{Detection Error Trade-off}
 
 \newacronym{cs}{CS}{Cosine Similiarity}
 
@@ -189,7 +190,7 @@
 \newcolumntype{a}{>{\columncolor{Gray}}c}
 \newcolumntype{b}{>{\columncolor{white}}c}
 \renewcommand{\arraystretch}{1.4}
-\newcommand{\xmark}{\ding{53}}%
+%\newcommand{\xmark}{\ding{53}}%
 
 \newcommand{\highlightb}[1]{%
 \colorbox{blue!30}{$\displaystyle#1$}}
@@ -228,7 +229,7 @@ Face Recognition: Too Bias, or Not Too Bias?
 }
 
 \begin{document}
-\begin{bibunit}
+%\begin{bibunit}
 
 
 \def\angle{0}
@@ -286,11 +287,11 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 \scalebox{0.9}{
 \begin{tabular}{l c c c c c}
         &  CF  &      CM     &   WF     &   WM     &  Avg\\\midrule
-        CF &  \textbf{0.529}&  0.480&0.438&0.447 &0.474\pm0.041 \\
-        CM & 0.456 & \textbf{0.504}  & 0.444 &0.362 &0.441\pm0.059 \\
-        WF & 0.447 &0.438 &  \textbf{0.573}& 0.480 & 0.485\pm0.062 \\
-        WM & 0.301&0.474 &  0.453 & \textbf{0.561} & 0.447\pm0.108 \\\midrule
-        Avg &  0.433& 0.474&0.477 &0.463 &0.462\pm0.020\\
+        CF &  \textbf{0.529}&  0.480&0.438&0.447 &0.474$\pm$0.041 \\
+        CM & 0.456 & \textbf{0.504}  & 0.444 &0.362 &0.441$\pm$0.059 \\
+        WF & 0.447 &0.438 &  \textbf{0.573}& 0.480 & 0.485$\pm$0.062 \\
+        WM & 0.301&0.474 &  0.453 & \textbf{0.561} & 0.447$\pm$0.108 \\\midrule
+        Avg &  0.433& 0.474&0.477 &0.463 &0.462$\pm$0.020\\
  \end{tabular}}
  \end{center}
  \vspace{-6mm}
@@ -300,12 +301,13 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 \section{CONCLUSION}
 We introduce a new data set \gls{bfw} with eight subgroups balanced across gender and ethnicity. With this, and upon highlighting the challenges and shortcomings of grouping subjects as a single subset, we provide evidence that forming subgroups is meaningful, as the \gls{fr} algorithm rarely makes mistakes across subgroups. We trained Arc-Face net on MSCeleb, expecting that the results would suffer from bias because of the imbalanced train-set. Once established that the results do suffer from problems of bias, we observed that the same threshold across ethnic and gender subgroups leads to differences in the \gls{fpr} up to a factor of two, which is seemingly the cause of the frenzy about bias in \gls{fr} in main-stream media. Furthermore, we ameliorate these differences with a per-subgroup threshold, leveling out \gls{fpr}, and achieving a higher \gls{tpr}. We hypothesized that most humans grown amongst more than their own demographic and, therefore, effectively learn from imbalanced datasets-- a human evaluation validated that humans are biased, as most recognized their personal demographic best. The focused research findings presented here, along with the public database included, are extendable in vast ways. Thus, we see this as the slither to a much larger problem of bias in ML.
 
+s\bibliographystyle{ieee}
+\bibliography{bias}
 
-
-\putbib
-\end{bibunit}
-\begin{bibunit}
-\input{supplemental.tex}
-\end{bibunit}
+%\putbib
+%\end{bibunit}
+%\begin{bibunit}
+%\input{supplemental.tex}
+%\end{bibunit}
 
 \end{document}
