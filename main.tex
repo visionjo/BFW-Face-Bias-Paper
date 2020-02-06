@@ -298,16 +298,18 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 \end{table} 
 
 \glsresetall
+\vspace{-1mm}
 \section{CONCLUSION}
 We introduce a new data set \gls{bfw} with eight subgroups balanced across gender and ethnicity. With this, and upon highlighting the challenges and shortcomings of grouping subjects as a single subset, we provide evidence that forming subgroups is meaningful, as the \gls{fr} algorithm rarely makes mistakes across subgroups. We trained Arc-Face net on MSCeleb, expecting that the results would suffer from bias because of the imbalanced train-set. Once established that the results do suffer from problems of bias, we observed that the same threshold across ethnic and gender subgroups leads to differences in the \gls{fpr} up to a factor of two, which is seemingly the cause of the frenzy about bias in \gls{fr} in main-stream media. Furthermore, we ameliorate these differences with a per-subgroup threshold, leveling out \gls{fpr}, and achieving a higher \gls{tpr}. We hypothesized that most humans grown amongst more than their own demographic and, therefore, effectively learn from imbalanced datasets-- a human evaluation validated that humans are biased, as most recognized their personal demographic best. The focused research findings presented here, along with the public database included, are extendable in vast ways. Thus, we see this as the slither to a much larger problem of bias in ML.
 
-s\bibliographystyle{ieee}
+\vspace{-3mm}
+\bibliographystyle{ieee}
 \bibliography{bias}
 
-%\putbib
-%\end{bibunit}
-%\begin{bibunit}
-%\input{supplemental.tex}
-%\end{bibunit}
+% \putbib
+% \end{bibunit}
+\begin{bibunit}
+\input{supplemental.tex}
+\end{bibunit}
 
 \end{document}
