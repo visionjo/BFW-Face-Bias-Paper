@@ -23,7 +23,7 @@ Problems of bias in \gls{fr} motivated the design of \gls{bfw}. The data evenly 
 	\centering    
  \glsunset{fpr}
   \glsunset{fnr}
-	\includegraphics[trim=7mm 0.1in 5mm 0in,clip,width=\linewidth]{images/detcurve-improved.pdf}
+	\includegraphics[width=\linewidth]{figures/detcurve-improved.pdf}
 		\caption{\textbf{\gls{det} curves.} \emph{Top-left}: per gender. \emph{Top-right}: per ethnicity. \emph{Bottom}: per subgroup (\ie combined). A dashed lined shows a difference by about 2$\times$ in \gls{fpr} for the same threshold $\theta_{const}$. \gls{fnr} is the number of match errors, so closer a curve is to the bottom better.}
 		\glsreset{det}\glsreset{fpr}
 \label{fig:detcurves} 
@@ -40,7 +40,7 @@ Faces of \gls{bfw} were encoded using the original implementation of the \gls{so
 	\glsunset{fpr}
 	\centering
 	\centering
-	\includegraphics[width=1\linewidth]{images/violinplots.pdf}
+	\includegraphics[width=1\linewidth]{figures/violinplots.pdf}
 		\caption{\textbf{\Gls{sdm} across subgroups.} The scores for \emph{imposters} have medians about 0.3 but with variation in upper percentiles, while \emph{genuine} pairs vary in both (\eg \gls{af} has more area of overlap). A varying threshold varying across different subgroups yields a constant \gls{fpr}.} \label{fig:detection-model} 
 		
 \end{figure} 
