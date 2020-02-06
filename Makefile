@@ -1,5 +1,5 @@
 
-DOCNAME=main
+DOCNAME=manuscript
 
 all: report
 
