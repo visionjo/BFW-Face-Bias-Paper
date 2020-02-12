@@ -45,7 +45,7 @@ To address \textbf{(2)}, the lack of a balanced data, we introduce a new benchma
 
 \begin{table*}[!t]
     \centering
-    \caption{\small{\textbf{Database stats and nomenclature, optimal thresholds ($t_o$), and accuracy scores.} \textit{Header:} Subgroup definitions. \textit{Top-row:} Statistics of \gls{bfw}. \textit{Middle-row:} Number of pairs for each partition. \textit{Bottom-row:} Accuracy when applying a global threshold $t_g$, the optimal threshold $t_o$, and accuracy with $t_o$ per subgroup. Columns grouped by race and then further split by gender. Out of millions of pairs, accuracy is inconsistent across subgroups. Furthermore, $F$ tend to perform inferior to that of $M$ (\ie up to 8\%).}}\label{tab:ethnic-splits}
+    \caption{\small{\textbf{Database stats and nomenclature, optimal thresholds ($t_o$), and accuracy scores.} \textit{Header:} Subgroup definitions. \textit{Top-row:} Statistics of \gls{bfw}. \textit{Middle:} Number of pairs for each partition. \textit{Bottom:} Accuracy with a global threshold $t_g$, the optimal threshold $t_o$, and accuracy with $t_o$ per subgroup. Specifically, $t_g$=0.259$\pm$0.002 when averaged across the five folds. Columns grouped by race and then further split by gender. Out of millions of pairs, accuracy is inconsistent across subgroups. Furthermore, $F$ tend to perform inferior to that of $M$ for all but B.}}\label{tab:ethnic-splits}
     \scalebox{1}{
      \resizebox{\textwidth}{!}{%
     \begin{tabular}{r c c c c c c c c l}
@@ -66,9 +66,10 @@ To address \textbf{(2)}, the lack of a balanced data, we introduce a new benchma
         \# Pairs (Total) & 115,135 & 115,232    &115016 &115,141 & 115287  & 115,152  &  115,223& 115193 & 921,379\\ % row 3
         % \midrule
         \specialrule{.01em}{.05em}{.05em}
-        Acc$@t_g$ & 0.876 & 0.944  &0.934 &0.942 &0.922&0.949 &0.916  &0.918&0.925$\pm$0.022 \\
-        $t_o$ & 0.235 &  0.274 & 0.267&0.254  &0.299 & 0.295& 0.242 &0.222&0.261\\ % row 4
-        Acc$@t_o$ & 0.916 &0.964 &0.955 &0.971 &0.933 &0.958 & 0.969 &0.973 & 0.955 $\pm$ 0.018\\
+        Acc$@t_g$ & 0.941 & 0.952  & 0.967 & 0.960 & 0.958 &0.962  & 0.973 & 0.981 &0.962 $\pm$0.012 \\
+        $t_o$ & 0.255 &  0.246 & 0.277 &0.242  &0.297 & 0.264& 0.233 &0.239 &0.257$\pm$0.006\\ % row 4
+        
+        Acc$@t_o$ & 0.942 &0.952 &0.968 &0.961 &0.960 &0.962 & 0.974 &0.982 & 0.963 $\pm$ 0.012\\
         \bottomrule
     \end{tabular}}
     \glsunset{af}
