@@ -49,7 +49,7 @@
 \usepackage{ctable}
 \usepackage{multirow}
 \usepackage{makecell}
-
+\usepackage{balance}
 % \usepackage[small]{caption}
 % \usepackage{subcaption}
 % \usepackage{subfigure} 
@@ -78,7 +78,7 @@
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
-
+% \usepackage{minipage}
 \usepackage{array}
 \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 
@@ -153,7 +153,7 @@
 \newacronym{sdm}{SDM}{signal detection model}
 \newacronym{roc}{ROC}{receiver operating characteristic}
 \newacronym{nmse}{NMSE}{Normalized Mean Square Error}
-\newacronym{det}{DET}{Detection Error Trade-off}
+\newacronym{det}{DET}{Detection error trade-off}
 \newacronym{tp}{TP}{true-positive}
 \newacronym{fp}{FP}{false-positive}
 
@@ -214,11 +214,14 @@
 %\usepackage{graphics} % for pdf, bitmapped graphics files
 %\usepackage{epsfig} % for postscript graphics files
 
-
-
-\title{\LARGE \bf\vspace{-10mm}
+\title{\LARGE \bf
 Face Recognition: Too Bias, or Not Too Bias?
 }
+
+
+% \title{\LARGE \bf\vspace{-10mm}
+% Face Recognition: Too Bias, or Not Too Bias?
+% }
 
 
 %use this in case of several affiliations
@@ -251,7 +254,7 @@ Face Recognition: Too Bias, or Not Too Bias?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-We reveal critical insights into problems of bias in state-of-the-art \gls{fr} systems using a novel \gls{bfw} dataset: data balanced for gender and ethnic groups. Classic signal detection theory revealed trends in the underlying score distribution across subgroups. Specifically, we show variations in the optimal scoring threshold varies for face-pairs across different subgroups. Thus, the conventional approach of learning a  global threshold for all pairs resulting in performance gaps among subgroups. By learning subgroup-specific thresholds, we not only mitigate problems in performance gaps but also show a notable boost in the overall performance. Furthermore, we do a human evaluation to measure the bias in humans, which supports the hypothesis that such a bias exists in human perception. To download the \gls{bfw} database, source code, and more, visit \href{https://github.com/visionjo/facerec-bias-bfw}{github.com/visionjo/facerec-bias-bfw}
+We reveal critical insights into problems of bias in state-of-the-art \gls{fr} systems using a novel \gls{bfw} dataset: data balanced for gender and ethnic groups. We show variations in the optimal scoring threshold for face-pairs across different subgroups. Thus, the conventional approach of learning a  global threshold for all pairs resulting in performance gaps among subgroups. By learning subgroup-specific thresholds, we not only mitigate problems in performance gaps but also show a notable boost in the overall performance. Furthermore, we do a human evaluation to measure the bias in humans, which supports the hypothesis that such a bias exists in human perception. For the \gls{bfw} database, source code, and more, visit \href{https://github.com/visionjo/facerec-bias-bfw}{github.com/visionjo/facerec-bias-bfw}
 \end{abstract}
 \
 \input{sections/introduction.tex}
@@ -282,8 +285,7 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 \begin{center}
     \caption{\small{\textbf{Quantitative of human assessment.} Different human subgroups listed per row. Each column is the subgroup labeled. Note that each people are best within their subgroup, and second-best within the same subgroup but different gender. CF shows the least variation, but with the lowest accuracy. CM shows the best accuracy, but second to \gls{wm} in deviation from the mean. Thus, scores for males vary more than females.}}
     \label{tab:humsn-eval-results} 
-     \vspace{-2mm}
-
+    %  \vspace{-2mm}
 \footnotesize
 \scalebox{0.9}{
 \begin{tabular}{l c c c c c}
@@ -295,16 +297,16 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
         Avg &  0.433& 0.474&0.477 &0.463 &0.462$\pm$0.020\\
  \end{tabular}}
  \end{center}
- \vspace{-6mm}
+%  \vspace{-7mm}
 \end{table} 
 
 \glsresetall
-\vspace{-1mm}
-\section{CONCLUSION}
-We introduce a new data set \gls{bfw} with eight subgroups balanced across gender and ethnicity. With this, and upon highlighting the challenges and shortcomings of grouping subjects as a single subset, we provide evidence that forming subgroups is meaningful, as the \gls{fr} algorithm rarely makes mistakes across subgroups. We trained Arc-Face net on MSCeleb, expecting that the results would suffer from bias because of the imbalanced train-set. Once established that the results do suffer from problems of bias, we observed that the same threshold across ethnic and gender subgroups leads to differences in the \gls{fpr} up to a factor of two, which is seemingly the cause of the frenzy about bias in \gls{fr} in main-stream media. Furthermore, we ameliorate these differences with a per-subgroup threshold, leveling out \gls{fpr}, and achieving a higher \gls{tpr}. We hypothesized that most humans grown amongst more than their own demographic and, therefore, effectively learn from imbalanced datasets-- a human evaluation validated that humans are biased, as most recognized their personal demographic best. The focused research findings presented here, along with the public database included, are extendable in vast ways. Thus, we see this as the slither to a much larger problem of bias in ML.
+\section{Conclusion}
+We introduce a new data set \gls{bfw} with eight subgroups balanced across gender and ethnicity. With this, and upon highlighting the challenges and shortcomings of grouping subjects as a single subset, we provide evidence that forming subgroups is meaningful, as the FR algorithm rarely makes mistakes across subgroups. We used an \textit{off-the-shelf} Sphereface, hypothesizing this SOTA CNN suffers from bias because of the imbalanced train-set. Once established that the results do suffer from problems of bias, we observed that the same threshold across ethnic and gender subgroups leads to differences in the FPR up to a factor of two, which is seemingly the cause of the frenzy about bias in FR in main-stream media. Furthermore, we ameliorate these differences with a per-subgroup threshold, leveling out FPR, and achieving a higher TPR. We hypothesized that most humans grown amongst more than their own demographic and, therefore, effectively learn from imbalanced datasets-- a human evaluation validated that humans are biased, as most recognized their personal demographic best. The focused research findings presented here, along with the public database included, are extendable in vast ways. Thus, we see this as the slither to a much larger problem of bias in ML.
 
-\vspace{-3mm}
+% \vspace{-3mm}
 \bibliographystyle{ieee}
+\balance
 \bibliography{references}
 
 % \putbib

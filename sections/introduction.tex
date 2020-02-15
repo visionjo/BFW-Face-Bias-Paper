@@ -6,10 +6,9 @@ As more of society becomes integrated with \gls{ml}, bias, fairness, and the for
 
 \begin{figure}[t!]
 \centering
-         \includegraphics[trim=0in 0.2in 0in 0in,clip,width=.9\linewidth]{figures/montage.pdf}
+         \includegraphics[trim=0in 0.2in 0in 0in,clip,width=\linewidth]{figures/montage.pdf}
 \caption{\textbf{\gls{bfw}.} The average face of its different subsets: \emph{top-left}: the entire \gls{bfw}; \emph{top-row} per race;  \emph{left-column}: per gender. The others represent the ethnicity and gender of the race and gender, respectfully. Table~\ref{tab:ethnic-splits} defines the acronyms of subgroups.}
 \label{fig:avg-faces}
-% \vspace{-3pt}
 \end{figure}
 
 Typically, \glspl{cnn} are trained on faces identified by a detection system. Specifically, for \gls{fr}, the goal is to project faces to an N-dimensional space with minimal distances between samples of the same identity and maximize the gap separating those that are different. Thus, the overarching goal is to discriminate between subjects with face encodings. We can deploy such a \gls{cnn} to encode faces to compare via a similarity score: genuine pair if the score is high enough; and rejected as an imposter. 
@@ -31,7 +30,7 @@ A fixed threshold acts as a decision boundary in similarity score space. Thus, t
     \gls{bfw} (ours) & VGG2 & 20,000 & 800 &8 & \checkc & \checkc &\checkc \\\bottomrule
     \end{tabular}
     \label{tab:compared}
-    \vspace{-5mm}
+    % \vspace{-4mm}
 \end{table*}
 
 The adverse effects of a global threshold are two-fold: \textbf{(1)} the mapping produced by a \gls{cnn} is nonuniform. Therefore, distances between pairs of faces in different demographics vary in distribution of similarity scores (Fig~\ref{fig:detection-model}); \textbf{(2)} the evaluation set is imbalanced as well. Particular demographics making up a majority of the population will carry most weight on reported performance ratings. Reported results skew away from common traits to the underrepresented subgroups. Alas, demographics like gender, ethnicity, race, and age are underrepresented in most public datasets. 
@@ -82,7 +81,7 @@ To address \textbf{(2)}, the lack of a balanced data, we introduce a new benchma
     \glsunset{im}
     \glsunset{wf}
     \glsunset{wm}
-    \vspace{-12pt}
+    % \vspace{-12pt}
 \end{table*}
 
 
@@ -90,9 +89,9 @@ To address \textbf{(2)}, the lack of a balanced data, we introduce a new benchma
 
 The contributions in this paper are as follows:
 \begin{enumerate}
-    \item We built a balanced dataset as a proxy to measure verification performance per subgroup.
-    \item We analyzed an unwanted bias in scores of face pairs while showing that optimal thresholds determined per subgroup significantly boost and balances performances.
-    \item We showed bias causes inconsistencies in ratings across demographics-- the typical use of a global threshold unfavorable. We mitigate the problem via adaptive thresholds.
-    \item We conducted human-evaluations to demonstrate bias in human perception.\footnote{NIH-certified, \textit{Protect Humans in Research}, \textcolor{red}{IRB 19-09-08}.}
+    \item Built a balanced dataset as a proxy to measure verification performance per subgroup.
+    \item Analyzed an unwanted bias in scores of face pairs while showing that optimal thresholds determined per subgroup significantly boost and balances performances.
+    \item Showed bias causes inconsistencies in ratings across demographics-- the typical use of a global threshold unfavorable. We mitigate the problem via adaptive thresholds.
+    \item Conducted human-evaluations to demonstrate bias in human perception.\footnote{NIH-certified, \textit{Protect Humans in Research}, \textcolor{red}{IRB 19-09-08}.}
 \end{enumerate}
 

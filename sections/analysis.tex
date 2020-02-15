@@ -3,11 +3,10 @@
 	\includegraphics[width=\linewidth]{figures/confusion.pdf}
 		\caption{\small{\textbf{Confusion matrix.} Percent error (Rank 1) for all faces of \gls{bfw} queried against all others. Notice errors concentrate within a subgroup, consistent with the \gls{sdm} in Fig.~\ref{fig:detection-model} (\ie \gls{af} show worst performance, and is mostly confused with faces of the same demographic). This plot is evidence that while race/ethnicity may be challenging to define, the subgroups are meaningful.}}
 		\label{fig:confusion} 
-		\vspace{-5mm}
 \end{figure} 
 
 \section{Results and Analysis}
-An {\em off-the-shelf} \gls{cnn} was used throughout to control the model across all experiments. For this, Sphereface~\cite{liu2017sphereface} trained on CASIA-Web~\cite{yi2014learning}, and evaluated on \gls{lfw}~\cite{LFWTech} (\%99.22 accuracy), encoded all of the faces.\footnote{\href{$https://github.com/clcarwin/sphereface\_pytorch$}{https:\/\/github.com\/clcarwin\/sphereface\_pytorch}} Following~\cite{liu2017sphereface}, upon applying an affine transformation to align faces according to pre-defined eye locations, each face got fed through the network twice, the original and horizontally flipped. The two features were fused by concatenation.
+An {\em off-the-shelf} \gls{cnn} was used throughout to control the model across all experiments. For this, Sphereface~\cite{liu2017sphereface} trained on CASIA-Web~\cite{yi2014learning}, and evaluated on \gls{lfw}~\cite{LFWTech} (\%99.22 accuracy), encoded all of the faces.\footnote{\href{$https://github.com/clcarwin/sphereface\_pytorch$}{https://github.com/clcarwin/sphereface\_pytorch}} Following~\cite{liu2017sphereface}, upon applying an affine transformation to align faces according to pre-defined eye locations, each face got fed through the network twice, the original and horizontally flipped. The two features were fused by average pooling (\ie 512 D).
 
 Additional \gls{cnn}-based models demonstrate the same phenomena: proportional to the overall model performance, exact in which the ordering subgroups in sensitivity in scores space (Appendix~\ref{app:sec:other:models}).
 % Specifically, we analyze three \glspl{cnn} variants: we encode faces using VGG-16~\cite{simonyan2014very},  50-layer residual network (\ie ResNet-50)~\cite{he2016deep}, and \gls{senet} (\ie SENet-50)~\cite{hu2018squeeze}, with results of only the latter (\ie the best performing \gls{senet}) model used throughout the main paper. Results for the other two, alongside \gls{senet} for comparison, are in the Supplemental Material.
@@ -16,10 +15,7 @@ Additional \gls{cnn}-based models demonstrate the same phenomena: proportional t
 \glsunset{am}\glsunset{af}\glsunset{bm}\glsunset{bf}\glsunset{im}\glsunset{if}\glsunset{wm}\glsunset{wf}
 
 
-
-% \vspace{-2mm}
-% \vspace{-2pt}
-\subsection{Score Analysis}
+\subsection{Score analysis}
 Fig.~\ref{fig:detection-model} shows score distributions for faces of the same (\ie \emph{Genuine}) and different (\ie \emph{Imposter}) identity, with a subgroup per \gls{sdm} plot. Notice that score distributions for imposters tends to peak about zero for all subgroups, and with minimal deviation comparing modes of the different plots. On the other hand, the score distribution of the \emph{genuine} pairs varies across subgroups in location (\ie score value) and spread (\ie overall shape). Asian Fem
 Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast majority of errors occurs in intra-subgroup. It is interesting to note that while the definition of  each group  based on ethnicity and race may not be crisply defined, the confusion matrix indicates that in practice the \gls{cnn} finds that the groups are effectively separate. The categories are, therefore, meaningful in the context of \gls{fr}.
 
@@ -36,7 +32,7 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 \glsunset{tar}
 \glsunset{far}
 \caption{\small{\textbf{\gls{tar} at intervals of \gls{far}}. For each subgroup, and overall average \gls{far}, listed are the \gls{tar} scores for a global threshold (top) and the proposed category-based threshold (bottom). Higher is better. The proposed shows improvement in all cases.}}\label{tab:ethnicy-far} 
- \vspace{-2mm}
+%  \vspace{-2mm}
 \begin{center}
 \begin{tabular}{l c c c c c}
      \gls{far} & 0.3 & 0.1 & 0.01 & 0.001 & 0.0001\\\midrule
@@ -63,7 +59,7 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 \end{center}
 \glsreset{tar}
 \glsreset{far}
- \vspace{-3mm}
+%  \vspace{-3mm}
 
 \end{table}
 
@@ -76,7 +72,7 @@ We seek to reduce the bias between subgroups. Such that an operating point (\ie 
 
 We evaluated \gls{tar} for specific \gls{far} values. As described in Section~\ref{subsec:pf}, the verification experiments were 5-fold, with no overlap in subject ID between folds. Results reported are averaged across folds in all cases and are shown in Table~\ref{tab:ethnicy-far}. For each subgroup, the \gls{tar} of using a global-threshold is reported (upper row), as well as using the optimal per subgroup threshold (lower row). 
 
-Even for lower \gls{far}, there are notable improvements, often of the order of 1\%, which can be challenging to achieve when \gls{far} is near $\geq$90\%. More importantly, each subgroup has the desired \gls{fpr}, so that substantial differences in \gls{fpr} will remain unfounded. We further experimented using ethnicity estimators and using the ethnicity of both query and test image, which yielded similar results to those reported here (results not shown).
+Even for lower \gls{far}, there are notable improvements, often of the order of 1\%, which can be challenging to achieve when \gls{far} is near $\geq$90\%. More importantly, each subgroup has the desired \gls{fpr}, so that substantial differences in \gls{fpr} will remain unfounded. We further experimented using ethnicity estimators and using the ethnicity of both query and test image, which yielded similar results to those reported here.
 
 \begin{figure}[t!] 
 	\centering    
@@ -84,12 +80,9 @@ Even for lower \gls{far}, there are notable improvements, often of the order of 
 		\caption{\small{\textbf{Qualitative results of human assessment.} $\checkmark$ for \emph{match}; $\times$ for \emph{non-match}. Accuracy scores shown as bar plots. Humans are most successful at recognizing their own subgroup, with a few exceptions (\eg bottom).}}
 		% (\eg bottom row). } Result summary in Table~\ref{tab:human-eval}.
 		\label{fig:human-eval} 
-		\vspace{-5mm}
+% 		\vspace{-1mm}
 \end{figure} 
-\vspace{-2mm}
+% \vspace{-4mm}
 % \vspace{-5pt}
 \subsection{Human evaluation}
- Quantitative and qualitative results are in Table~\ref{tab:humsn-eval-results} and Fig.~\ref{fig:human-eval}, respectfully. One might expect that the most exposure to others would be within the same subgroup, and, therefore, would be best at labeling their own. Secondarily, they would be best at labeling images of the same ethnicity, but opposite gender. Our findings concur. Each subgroup is best at labeling their type, and then second best at labeling the same ethnicity but opposite sex. Interestingly, each group of images is best tagged by the corresponding subgroup, with the second-to-best having the same ethnicity and opposite gender. On average, subgroups are comparable at labeling images. 
-
-
-
+ Quantitative and qualitative results are in Table~\ref{tab:humsn-eval-results} and Fig.~\ref{fig:human-eval}, respectfully. Subjects of a subgroup likely have mostly been exposured to others of the same. Therefore, it is expected they would be best at labeling their own; similar for the same ethnicity, but other gender. Our findings concur. Each subgroup is best at labeling their type, and then second best at labeling the same ethnicity but opposite sex. Interestingly, each group of images is best tagged by the corresponding subgroup, with the second-to-best having the same ethnicity and opposite gender. On average, subgroups are comparable at labeling images. 

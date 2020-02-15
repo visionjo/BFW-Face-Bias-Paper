@@ -5,7 +5,7 @@
 We now discuss the \gls{bfw} dataset, and protocols to evaluate \gls{ml}-based \gls{fr}. We  conclude this section by reviewing the human evaluation conducted as part of this work, to detect bias in humans.
 
 \subsection{The data}
-Problems of bias in \gls{fr} motivated the design of \gls{bfw}. The data evenly represent various subgroups partitioned by demographics. Inspired by \gls{dp}~\cite{demogPairs}, the specification of \gls{bfw} follows in suit. \gls{bfw} includes additional subgroups (\ie \gls{if} and \gls{im}), an increased in the number subjects per subgroup, with many more pairs (Table~\ref{tab:ethnic-splits}). 
+Problems of bias in \gls{fr} motivated the design of \gls{bfw}. The data evenly represent various subgroups partitioned by demographics. Inspired by \gls{dp}~\cite{demogPairs}, the specification of \gls{bfw} follows in suit. \gls{bfw} includes additional subgroups (\ie \gls{if} and \gls{im}), an increase in the number subjects per subgroup, and with many more pairs (Table~\ref{tab:ethnic-splits}). 
 
 
 
@@ -17,7 +17,7 @@ Problems of bias in \gls{fr} motivated the design of \gls{bfw}. The data evenly 
 
 
 \vspace{1mm}
-\noindent\textbf{Detecting faces.} Faces were detected using \gls{mtcnn}~\cite{zhang2016joint}.\footnote{\href{https://github.com/polarisZhao/mtcnn-pytorch}{https://github.com/polarisZhao/mtcnn-pytorch}} Then, assigned into one of two sets. Faces within detected bounding box (BB) regions extended out 130\% in each direction, with zero-padding as the boundary condition made-up one set. The second set were faces aligned and cropped for Arcface~\cite{deng2019arcface} (see the next step). Also, coordinates of the BB and the five landmarks per MTCNN were stored as part of the static, raw data. Samples with multiple face detections had the BB area times the confidence score of the MTCNN to determine the instance most likely to be the face, with others set aside and labeled \textit{miss-detection}. 
+\noindent\textbf{Detecting faces.} Faces were detected using \gls{mtcnn}~\cite{zhang2016joint}.\footnote{\href{https://github.com/polarisZhao/mtcnn-pytorch}{https://github.com/polarisZhao/mtcnn-pytorch}} Then, assigned into one of two sets. Faces within detected bounding box (BB) regions extended out 130\% in each direction, with zero-padding as the boundary condition made-up one set. The second set were faces aligned and cropped for Sphereface~\cite{liu2017sphereface} (see the next step). Also, coordinates of the BB and the five landmarks from \gls{mtcnn} were stored as part of the static, raw data. For samples with multiple face detections, we used the BB area times the confidence score of the \gls{mtcnn} to determine the face most likely to be the subject of interest, with the others set aside and labeled \textit{miss-detection}. 
 
 \begin{figure}[!t] 
 	\centering    
@@ -31,7 +31,7 @@ Problems of bias in \gls{fr} motivated the design of \gls{bfw}. The data evenly 
 
 \vspace{1mm}
 \noindent\textbf{Validating labels.} 
-Faces of \gls{bfw} were encoded using the original implementation of the \gls{soa} Arcface~\cite{deng2019arcface}. A matrix of cosine similarity scores was then generated for each subject, and removed samples (\ie rows) with median scores below threshold $\theta=0.2$. Mathematically, the $j^{th}$ subject with $N_j$ faces is removed if the ordinal rank of its score $n = \frac{P\times N}{100}\geq\theta$, with the percentile $P=50$, $\theta=0.2$ set manually, and an ordered list of scores. This allowed us to quickly prune \gls{fp} face detections. Following~\cite{robinson2016families, robinson2018visual}, we built a JAVA tool to visually validate the remaining faces. The faces were first ordered from most-to-least confidence, with confidence set as the average score, and then displayed as image icons on top toggling buttons arranged as a grid in a sliding pane window. Labeling then consisted of going subject-by-subject and flagging faces of \emph{imposters}. 
+Faces of \gls{bfw} were encoded using the original implementation of the \gls{soa} Sphereface~\cite{liu2017sphereface}. A matrix of cosine similarity scores was then generated for each subject, and removed samples (\ie rows) with median scores below threshold $\theta=0.2$. Mathematically, the $n^{th}$ sample for the $j^{th}$ subject with $N_j$ faces was removed if the ordinal rank of its score $n = \frac{P\times N}{100}\geq\theta$, with the percentile $P=50$, fell below a threshold of $\theta=0.2$ (set manually). This allowed us to quickly prune \gls{fp} face detections. Following~\cite{robinson2016families, robinson2018visual}, we built a JAVA tool to visually validate the remaining faces. For this, the faces were ordered by decreasing confidence, with confidence set as the average score, and then displayed as image icons on top toggling buttons arranged as a grid in a sliding pane window. Labeling then consisted of going subject-by-subject and flagging faces of \emph{imposters}.
 
 
 \vspace{1mm}
@@ -46,7 +46,7 @@ Faces of \gls{bfw} were encoded using the original implementation of the \gls{so
 \end{figure} 
 
 
-\vspace{-5pt}
+% \vspace{-5pt}
 \subsection{Problem formulation}\label{subsec:pf} 
 % \gls{lfw}~\cite{LFWTech}, a commonly used benchmark for ~\gls{fr}, reserves specific train-test face-pair lists. 
 \Gls{fv} is the special case of the two-class (\ie boolean) classification. Hence, pairs are labeled as the ``same'' or ``different'' \textit{genuine} pairs (\ie \textit{match}) or \textit{imposter} (\ie \textit{mismatch}), respectfully. This formulation (\ie \gls{fv}) is highly practical for applications like access control, re-identification, and surveillance. Typically, training a separate model for each unique subjects is infeasible. Firstly, the computational costs compound as the number of subjects increase.  Secondly, such a scheme would require model retraining each time a new person is added. Instead, we train models to encode facial images in a feature space that captures the uniqueness of a face, to then determine the outcome based on the output of a scoring (or distance) function. Formally put:
@@ -62,7 +62,7 @@ s_l= \frac{f_i\cdot f_j}{||f_i||_2||f_j||_2}
 $ is the closeness of the $l^{th}$ pair. 
 
 
-\subsection{Human Assessment}\label{subsec:human-assessment}
+\subsection{Human assessment}\label{subsec:human-assessment}
 We evaluated human on face pairs focusing on two racial groups: Chinese and Caucasians. To focus on the experiment, we honed-in on two groups, white Americans (W) and Chinese from China (C). The purpose was to the minimize variability by only analyzing the subsets of the broader groups of whites and Asians. 
 
 Samples were collected by recruiting subjects from multiple sources (\eg social media, email lists, and family/friends)-- a total of 120 participants were sampled at random from all the submissions that were (1) complete and (2) from a W or C participant. Specifically, there were 60 W and 60 C, both with \gls{m} and \gls{f} split evenly. A total of 50 face pairs of non-famous ``look-alikes'' were collected from the internet, with 20 ({\emph WA}) and 20 ({\emph C}) pairs (male and female split evenly). The other 10 pairs are of others (\eg Hispanic/ Latino, Japanese, African). Survey was created, distributed, and recorded via \href{https://paperform.co}{PaperForm}. 
