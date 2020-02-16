@@ -21,16 +21,19 @@ Variations in optimal threshold exist across models (Fig.~\ref{fig:sdm-appendix-
 \begin{figure}[h!]
 \vspace{-1mm}
     \centering
-    \begin{subfig}
-    \includegraphics[width=.3\linewidth]{figures/curve_vgg16_subgroups-crop.pdf}
-    \end{subfig}
-    \begin{subfig}
-    \includegraphics[width=.28\linewidth]{figures/curve_resnet50_subgroups-crop.pdf}
-    \end{subfig}
-        \begin{subfig}
-    \includegraphics[width=.28\linewidth]{figures/curve_senet50_subgroups-crop.pdf}
-    \end{subfig}
-    \caption{\textbf{\gls{det} curves for different CNN models}. \gls{fnr} (\%) (vertical) vs \gls{fpr} (log-scale)  (horizontal) for VGG2~\cite{Cao18} models with different backbones (vgg16, Resnet50~\cite{he2016deep}, SEnet50~\cite{hu2018squeeze}). Lower is better. For each plot, \gls{wm} is the best performing curve, \gls{af} is the worst. The the ordering of the curves is roughly the same for each backbone.}\label{fig:sdm-appendix-a}
+    \begin{subfigure}[t]{.3\linewidth}
+    \includegraphics[width=.75\linewidth]{figures/curve_vgg16_subgroups-crop.pdf}
+    \caption{VGG16~\cite{simonyan2014very}}
+ \end{subfigure}
+    \begin{subfigure}[t]{.27\linewidth}
+    \includegraphics[width=.8\linewidth]{figures/curve_resnet50_subgroups-crop.pdf}
+    \caption{ResNet50~\cite{he2016deep}}
+   \end{subfigure}
+    \begin{subfigure}[t]{.27\linewidth}
+    \includegraphics[width=.8\linewidth]{figures/curve_senet50_subgroups-crop.pdf}
+    \caption{SENet~\cite{hu2018squeeze}}
+    \end{subfigure}
+    \caption{\textbf{\gls{det} curves for different CNN models}. \gls{fnr} (\%) (vertical) vs \gls{fpr} (log-scale)  (horizontal) for VGG2~\cite{Cao18} models with different backbones (VGG16, Resnet50, SEnet50). Lower is better. For each plot, \gls{wm} is the best performing curve, \gls{af} is the worst. The the ordering of the curves is roughly the same for each backbone.}\label{fig:sdm-appendix-a}
     \vspace{-1mm}
 \end{figure}
 
@@ -40,7 +43,7 @@ Sample faces per subgroup of the \gls{bfw} dataset are shown in Fig.~\ref{fig:mo
 \begin{figure}[h!]
 \vspace{-2mm}
     \centering
-    \includegraphics[width=.75\linewidth]{figures/facemontage.pdf}
+    \includegraphics[width=.7\linewidth]{figures/facemontage.pdf}
     \caption{\textbf{Sample of \gls{bfw}}. Each row depicts a different gender, \gls{f} (top) and \gls{m} (bottom). Columns are grouped by ethnicity (\ie \gls{a}, \gls{b}, \gls{i}, and \gls{w}, respectfully).}
     \label{fig:montage:app}
     \vspace{-1mm}
@@ -48,9 +51,10 @@ Sample faces per subgroup of the \gls{bfw} dataset are shown in Fig.~\ref{fig:mo
 {
 \scriptsize
 \begin{thebibliography}{widest entry}
- \bibitem[1]{Cao18} Cao, Qiong, Li Shen, Weidi Xie, Omkar M. Parkhi, and Andrew Zisserman. "Vggface2: A dataset for recognising faces across pose and age." In \textit{IEEE International Conference on Automatic Face \& Gesture Recognition.} 2018.
-  \bibitem[2]{he2016deep} He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. "Deep residual learning for image recognition." In \textit{IEEE Conference on Computer Vision and Pattern Recognition.} 2016.
- \bibitem[3]{hu2018squeeze} Hu, Jie, Li Shen, and Gang Sun. "Squeeze-and-excitation networks." In \textit{IEEE Conference on Computer Vision and Pattern Recognition.} 2018.
+ \bibitem[1]{Cao18} Qiong Cao, Li Shen, Weidi Xie, Omkar M. Parkhi, and Andrew Zisserman. ``Vggface2: A dataset for recognising faces across pose and age.'' In \textit{IEEE International Conference on Automatic Face \& Gesture Recognition.} 2018.
+ \bibitem[2]{simonyan2014very} Karen Simonyan and Andrew Zisserman. ``Very deep convolutional networks for large-scale image recognition'' \textit{arXiv preprint arXiv:1409.1556.} 2014.
+  \bibitem[3]{he2016deep} He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. ``Deep residual learning for image recognition.'' In \textit{IEEE Conference on Computer Vision and Pattern Recognition.} 2016.
+ \bibitem[4]{hu2018squeeze} Hu, Jie, Li Shen, and Gang Sun. ``Squeeze-and-excitation networks.'' In \textit{IEEE Conference on Computer Vision and Pattern Recognition.} 2018.
 \end{thebibliography}
 }
 
