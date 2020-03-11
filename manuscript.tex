@@ -1,16 +1,25 @@
- \documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
+%  \documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{cvpr}
 
 %\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out
                                                           % if you need a4paper
                                                           
-\usepackage{FG2019}
+% \usepackage{FG2019}
 \usepackage{multirow}
-\usepackage{graphicx,subcaption}
+\usepackage{graphicx}
 
 \newcommand{\minitab}[2][c]{\begin{tabular}{#1}#2\end{tabular}}
 \usepackage[acronym]{glossaries}
 \usepackage{acronym}
 \usepackage{bigstrut}
+\usepackage{cvpr}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
 % symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{amsfonts}       % blackboard math symbols
@@ -18,12 +27,13 @@
 \usepackage{amsmath}% assumes amsmath package installed
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
-% \usepackage{hyperref}       % hyperlinks
-\usepackage[colorlinks = true,
-            linkcolor = blue,
-            urlcolor  = blue,
-            citecolor = blue,
-            anchorcolor = blue]{hyperref}
+% % \usepackage{hyperref}       % hyperlinks
+% \usepackage[colorlinks = true,
+%             linkcolor = blue,
+%             urlcolor  = blue,
+%             citecolor = blue,
+%             anchorcolor = blue]{hyperref}
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
             
 \usepackage{url}            % simple URL typesetting
 \usepackage{mathptmx} % assumes new font selection scheme installed
@@ -70,7 +80,7 @@
 \usepackage{pifont}% http://ctan.org/pkg/pifont
 
 
-\graphicspath{{images/}} %Setting the graphicspath
+% \graphicspath{{figures/}} %Setting the graphicspath
 \usepackage{bibunits}
 
 \defaultbibliography{bias}
@@ -97,9 +107,9 @@
 \newcommand{\checkc}{\ding{51}}%
 
 \newcommand{\com}[1]{\textcolor{red}{#1}}
-\newcommand{\ie}{\textit{i}.\textit{e}., }
-\newcommand{\eg}{\textit{e}.\textit{g}., }
-\newcommand*{\etc}{etc.\@\xspace}
+% \newcommand{\ie}{\textit{i}.\textit{e}., }
+% \newcommand{\eg}{\textit{e}.\textit{g}., }
+% \newcommand*{\etc}{etc.\@\xspace}
 
 
 \newcommand{\yann}[1]{\todo[color=orange!40]{\rotatebox{90}{YANN: #1}}}
@@ -201,7 +211,7 @@
 
 \newcommand{\vx}{\vec{x}\@ifnextchar{^}{\,}{}}
 
-\FGfinalcopy % *** Uncomment this line for the final submission
+% \FGfinalcopy % *** Uncomment this line for the final submission
 \let\vec\mathbf
 
 
@@ -216,49 +226,83 @@
 %\usepackage{graphics} % for pdf, bitmapped graphics files
 %\usepackage{epsfig} % for postscript graphics files
 
-\title{\LARGE \bf
-Face Recognition: Too Bias, or Not Too Bias?
-}
-
-
-% \title{\LARGE \bf\vspace{-10mm}
+% \title{\LARGE \bf
 % Face Recognition: Too Bias, or Not Too Bias?
 % }
 
 
-%use this in case of several affiliations
-\author{\parbox{16cm}{\centering
-    {\large Joseph P Robinson$^1$, Gennady Livitz$^2$, Yann Henon$^2$, Can Qin$^1$,\\ Yun Fu$^1$, and Samson Timoner$^2$}\\
-    {\normalsize
-    \hspace{-.4in}$^{1}$Northeastern University\hspace{.7in} $^{2}$ISM Connect}}
-    \thanks{}% <-this % stops a space
+% % \title{\LARGE \bf\vspace{-10mm}
+% % Face Recognition: Too Bias, or Not Too Bias?
+% % }
+
+
+% %use this in case of several affiliations
+% \author{\parbox{16cm}{\centering
+%     {\large Joseph P Robinson$^1$, Gennady Livitz$^2$, Yann Henon$^2$, Can Qin$^1$,\\ Yun Fu$^1$, and Samson Timoner$^2$}\\
+%     {\normalsize
+%     \hspace{-.4in}$^{1}$Northeastern University\hspace{.7in} $^{2}$ISM Connect}}
+%     \thanks{}% <-this % stops a space
+% }
+
+
+
+% \cvprfinalcopy % *** Uncomment this line for the final submission
+
+\def\cvprPaperID{****} % *** Enter the CVPR Paper ID here
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+% Pages are numbered in submission mode, and unnumbered in camera-ready
+\ifcvprfinal\pagestyle{empty}\fi
+\begin{document}
+
+%%%%%%%%% TITLE
+\title{Face Recognition: Too Bias, or Not Too Bias?}
+
+\author{First Author\\
+Institution1\\
+Institution1 address\\
+{\tt\small firstauthor@i1.org}
+% For a paper whose authors are all at the same institution,
+% omit the following lines up until the closing ``}''.
+% Additional authors and addresses can be added with ``\and'',
+% just like the second author.
+% To save space, use either the email address or home page, not both
+\and
+Second Author\\
+Institution2\\
+First line of institution2 address\\
+{\tt\small secondauthor@i2.org}
 }
 
-\begin{document}
+\maketitle
+
+
+% \begin{document}
 %\begin{bibunit}
 
 
-\def\angle{0}
-\def\radius{3}
-\def\cyclelist{{"orange","blue","red","green","magenta","cyan"}}
-\newcount\cyclecount \cyclecount=-1
-\newcount\ind \ind=-1
+% \def\angle{0}
+% \def\radius{3}
+% \def\cyclelist{{"orange","blue","red","green","magenta","cyan"}}
+% \newcount\cyclecount \cyclecount=-1
+% \newcount\ind \ind=-1
 
-\ifFGfinal
-\thispagestyle{empty}
-\pagestyle{empty}
-\else
-\author{Anonymous FG 2019 submission\\ Paper ID \FGPaperID \\}
-\pagestyle{plain}
-\fi
-\maketitle
+% \ifFGfinal
+% \thispagestyle{empty}
+% \pagestyle{empty}
+% \else
+% \author{Anonymous FG 2019 submission\\ Paper ID \FGPaperID \\}
+% \pagestyle{plain}
+% \fi
+% \maketitle
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 We reveal critical insights into problems of bias in state-of-the-art \gls{fr} systems using a novel \gls{bfw} dataset: data balanced for gender and ethnic groups. We show variations in the optimal scoring threshold for face-pairs across different subgroups. Thus, the conventional approach of learning a  global threshold for all pairs resulting in performance gaps among subgroups. By learning subgroup-specific thresholds, we not only mitigate problems in performance gaps but also show a notable boost in the overall performance. Furthermore, we do a human evaluation to measure the bias in humans, which supports the hypothesis that such a bias exists in human perception. For the \gls{bfw} database, source code, and more, visit \href{https://github.com/visionjo/facerec-bias-bfw}{github.com/visionjo/facerec-bias-bfw}
 \end{abstract}
-\
+
+
 \input{sections/introduction.tex}
 
 
@@ -306,15 +350,20 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 \section{Conclusion}
 We introduce a new data set \gls{bfw} with eight subgroups balanced across gender and ethnicity. With this, and upon highlighting the challenges and shortcomings of grouping subjects as a single subset, we provide evidence that forming subgroups is meaningful, as the FR algorithm rarely makes mistakes across subgroups. We used an \textit{off-the-shelf} Sphereface, hypothesizing this SOTA CNN suffers from bias because of the imbalanced train-set. Once established that the results do suffer from problems of bias, we observed that the same threshold across ethnic and gender subgroups leads to differences in the FPR up to a factor of two, which is seemingly the cause of the frenzy about bias in FR in main-stream media. Furthermore, we ameliorate these differences with a per-subgroup threshold, leveling out FPR, and achieving a higher TPR. We hypothesized that most humans grown amongst more than their own demographic and, therefore, effectively learn from imbalanced datasets-- a human evaluation validated that humans are biased, as most recognized their personal demographic best. The focused research findings presented here, along with the public database included, are extendable in vast ways. Thus, we see this as the slither to a much larger problem of bias in ML.
 
-% \vspace{-3mm}
-\bibliographystyle{ieee}
-\balance
+% % \vspace{-3mm}
+% \bibliographystyle{ieee}
+% \balance
+% \bibliography{references}
+
+{\small
+\bibliographystyle{ieee_fullname}
 \bibliography{references}
+}
 
 % \putbib
 % \end{bibunit}
-\begin{bibunit}
-\input{supplemental.tex}
-\end{bibunit}
+% \begin{bibunit}
+% \input{supplemental.tex}
+% \end{bibunit}
 
 \end{document}

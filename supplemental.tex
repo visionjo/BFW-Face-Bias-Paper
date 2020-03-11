@@ -1,11 +1,13 @@
 %
 \newpage
 \onecolumn
-% \begin{minipage*}[\linewidth]{width of the minipage}
-\renewcommand{\thesection}{\alph{section}}
-\glsresetall
-\setcounter{section}{0}
 
+
+% \begin{minipage*}[\linewidth]{width of the minipage}
+% \renewcommand{\thesection}{\alph{section}}
+\glsresetall
+% \setcounter{section}{0}
+\begin{comment}
 \section{Other \gls{cnn} models.}~\label{app:sec:other:models}
 Variations in optimal threshold exist across models (Fig.~\ref{fig:sdm-appendix-a}). Like in Fig.~\ref{fig:detcurves}, the \gls{det} curves for three \gls{cnn}-based models, each trained on VGG2 with softmax but with different backbones.\footnote{Used pre-trained models and public Github, \href{https://github.com/rcmalli/keras-vggface}{https://github.com/rcmalli/keras-vggface}} Notice similar trends across subgroups and models, which is consistent with  Sphereface as well (Fig.~\ref{fig:detcurves}). For example, the plots generated with Spherface and VggFace2 all have the \gls{wm} curve at the bottom (\ie best) and \gls{af} on top (\ie worst). 
 % ArcFace (not shown) shown similar results. We would have to cite + will incorporate later .... a blank statement and sphereface is comparable ... up to you i do not care
@@ -19,7 +21,6 @@ Variations in optimal threshold exist across models (Fig.~\ref{fig:sdm-appendix-
 
 
 \begin{figure}[h!]
-\vspace{-1mm}
     \centering
     \begin{subfigure}[t]{.3\linewidth}
     \includegraphics[width=.75\linewidth]{figures/curve_vgg16_subgroups-crop.pdf}
@@ -34,21 +35,62 @@ Variations in optimal threshold exist across models (Fig.~\ref{fig:sdm-appendix-
     \caption{SENet~\cite{hu2018squeeze}}
     \end{subfigure}
     \caption{\textbf{\gls{det} curves for different CNN models}. \gls{fnr} (\%) (vertical) vs \gls{fpr} (log-scale)  (horizontal) for VGG2~\cite{Cao18} models with different backbones (VGG16, Resnet50, SEnet50). Lower is better. For each plot, \gls{wm} is the best performing curve, \gls{af} is the worst. The the ordering of the curves is roughly the same for each backbone.}\label{fig:sdm-appendix-a}
-    \vspace{-1mm}
 \end{figure}
+\end{comment}
 
 
+\begin{table}
+\begin{center}
+\glsunsetall
+\caption{Intended \gls{fpr} per subgroup. Each tuple represents percentage the respective rate was achieved (\textcolor{green}{+\%} or \textcolor{red}{-\%}) paired with FNR. Each subgroup shows the use of $t_g$ (top) and individual $t_o$ (bottom).}
+\begin{tabular}{l c c c c c}
+     \gls{fpr} & 0.3 & 0.1 & 0.01 & 0.001 & 0.0001\\\midrule
+    \multirow{2}{.1mm}{\textbf{\gls{af}}} & (\textcolor{red}{-4.5}, )&(\textcolor{red}{-13.4}, )  &(\textcolor{red}{-25.8}, ) &(\textcolor{red}{-25.8}, )  &(\textcolor{red}{-25.5}, )  \\[-4pt]
+        & (0.0, ) &(0.0, )  & (0.0, ) &  (\textcolor{green}{0.1}, )&(\textcolor{red}{-5.6}, )  \\[-1pt]
+        
+    \multirow{2}{3mm}{\textbf{\gls{am}}}&(\textcolor{green}{2.3}, )&(\textcolor{green}{4.1}, )&(\textcolor{green}{11.2}, )&(\textcolor{green}{14.5}, )&(\textcolor{green}{52.1}, ) \\[-4pt]
+        & (0.0, ) &(0.0, )  & (\textcolor{green}{0.2}, ) & (\textcolor{green}{0.2}, ) & (\textcolor{red}{5.4}, )\\[-1pt]
+        
+    \multirow{2}{3mm}{\textbf{\gls{bf}}}& (\textcolor{red}{-1.6}, ) &(\textcolor{red}{-8.2}, ) &(\textcolor{red}{-23.4}, ) &(\textcolor{red}{-27.7}, ) &(\textcolor{red}{-41.8}, ) \\[-4pt]
+        & (0.0, ) &(\textcolor{red}{-0.1}, )  & (0.0, ) & (0.0, ) & (\textcolor{red}{5.7}, )\\[-1pt]
+        
+    \multirow{2}{3mm}{\textbf{\gls{bm}}}&(\textcolor{green}{2.3}, )&(\textcolor{green}{6.5}, )&(\textcolor{green}{17.6}, )&(\textcolor{green}{29.8}, )&(\textcolor{green}{95.8}, ) \\[-4pt]
+        & (0.0, ) &(\textcolor{red}{-0.1}, )  & (0.0, ) & (\textcolor{green}{0.1}, ) & (\textcolor{red}{5.5}, )\\[-1pt]
+        
+    \multirow{2}{3mm}{\textbf{\gls{if}}} &(\textcolor{red}{-9.0}, ) &(\textcolor{red}{-26.1}, ) &(\textcolor{red}{-58.6}, ) &(\textcolor{red}{-46.1}, ) &(\textcolor{red}{-60.9}, )\\[-4pt]
+        & (0.0, ) &(0.0, )  & (0.0, ) & (\textcolor{green}{0.2}, ) & (\textcolor{red}{5.4}, )\\[-1pt]
+        
+    \multirow{2}{3mm}{\textbf{\gls{im}}} &(\textcolor{green}{2.4}, )&(\textcolor{green}{4.3}, )&(\textcolor{red}{-3.4}, )&(\textcolor{red}{-16.4}, )&(\textcolor{red}{-76.2}, )\\[-4pt]
+        & (0.0, ) &(0.0, )  & (\textcolor{green}{0.1}, ) & (\textcolor{green}{0.1}, )  &(\textcolor{red}{5.5}, ) \\[-1pt]
+        
+    \multirow{2}{3mm}{\textbf{\gls{wf}}} &(\textcolor{red}{-1.1},) &(\textcolor{green}{5.8}, ) &(\textcolor{green}{50.6}, ) &(\textcolor{green}{52.6}, ) &(\textcolor{green}{158.0}, )\\[-4pt]
+       & (0.0, ) &(\textcolor{red}{-0.1}, )  & (\textcolor{green}{0.3}, ) & (\textcolor{green}{0.2}, )  &(\textcolor{red}{5.5}, )  \\[-1pt]
+
+    \multirow{2}{3mm}{\textbf{\gls{wm}}} & (\textcolor{green}{10.5}, ) & (\textcolor{green}{38.6}, )& (\textcolor{green}{120.0}, )& (\textcolor{green}{83.4}, )& (\textcolor{green}{200.0}, ) \\[-4pt]
+    
+        & (0.0, ) &(\textcolor{green}{0.2}, ) &(\textcolor{green}{0.2}, ) & (\textcolor{green}{0.2}, )&(\textcolor{red}{-5.5}, )\\[-1pt]
+    % \midrule
+    % \multirow{2}{3mm}{\textbf{Avg.}} \\[-4pt]
+    %   & (0.0, ) &(0.0, )  & (\textcolor{green}{-}, ) &  \\[-10pt]
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/SDM-crop.pdf}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
 
 Sample faces per subgroup of the \gls{bfw} dataset are shown in Fig.~\ref{fig:montage:app}.
 \begin{figure}[h!]
-\vspace{-2mm}
     \centering
     \includegraphics[width=.7\linewidth]{figures/facemontage.pdf}
     \caption{\textbf{Sample of \gls{bfw}}. Each row depicts a different gender, \gls{f} (top) and \gls{m} (bottom). Columns are grouped by ethnicity (\ie \gls{a}, \gls{b}, \gls{i}, and \gls{w}, respectfully).}
     \label{fig:montage:app}
-    \vspace{-1mm}
 \end{figure}
-{
+\begin{comment}
 \scriptsize
 \begin{thebibliography}{widest entry}
  \bibitem[1]{Cao18} Qiong Cao, Li Shen, Weidi Xie, Omkar M. Parkhi, and Andrew Zisserman. ``Vggface2: A dataset for recognising faces across pose and age.'' In \textit{IEEE International Conference on Automatic Face \& Gesture Recognition.} 2018.
@@ -56,6 +98,7 @@ Sample faces per subgroup of the \gls{bfw} dataset are shown in Fig.~\ref{fig:mo
   \bibitem[3]{he2016deep} He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. ``Deep residual learning for image recognition.'' In \textit{IEEE Conference on Computer Vision and Pattern Recognition.} 2016.
  \bibitem[4]{hu2018squeeze} Hu, Jie, Li Shen, and Gang Sun. ``Squeeze-and-excitation networks.'' In \textit{IEEE Conference on Computer Vision and Pattern Recognition.} 2018.
 \end{thebibliography}
-}
+
+\end{comment}
 
 % \end{minipage*}
