@@ -58,7 +58,7 @@
 \usepackage{xcolor}
 \usepackage{color, colortbl}
 \usepackage{comment}
-\usepackage{tabularx, booktabs, ragged2e}
+\usepackage{booktabs, ragged2e}
 % \usepackage{arydshln}
 % \usepackage{todonotes}
 % \usepackage{ctable}
@@ -157,7 +157,7 @@
 \newacronym{far}{FAR}{False Acceptance Rate}
 \newacronym{eer}{EER}{Equal Error Rate}
 
-\newacronym{cs}{CS}{Cosine Similiarity}
+\newacronym{cs}{CS}{Cosine Similarity}
 
 
 \newacronym{lime}{LIME}{Local Interpretable Model-Agnostic Explanations}
@@ -183,11 +183,30 @@
 \newcommand{\vx}{\vec{x}\@ifnextchar{^}{\,}{}}
 
 % \let\vec\mathbf
+% \usepackage[T1]{fontenc}
+% \usepackage[latin9]{inputenc}
 
+\def\colorModel{hsb} %You can use rgb or hsb
+\usepackage{babel}
+\usepackage[table]{xcolor}
+\usepackage{collcell}
+\def\colorModel{hsb} %You can use rgb or hsb
+
+\usepackage{hhline}
+\newcommand\ColCell[1]{
+  \pgfmathparse{#1<50?1:0}  %Threshold for changing the font color into the cells
+    \ifnum\pgfmathresult=0\relax\color{white}\fi
+  \pgfmathsetmacro\compA{0}      %Component R or H
+  \pgfmathsetmacro\compB{#1/100} %Component G or S
+  \pgfmathsetmacro\compC{1}      %Component B or B
+  \edef\x{\noexpand\centering\noexpand\cellcolor[\colorModel]{\compA,\compB,\compC}}\x #1
+  } 
+\newcolumntype{E}{>{\collectcell\ColCell}m{0.4cm}<{\endcollectcell}}  %Cell width
+\newcommand*\rot{\rotatebox{90}}
 
 % \cvprfinalcopy % *** Uncomment this line for the final submission
 
-\def\cvprPaperID{0002} % *** Enter the CVPR Paper ID here
+\def\cvprPaperID{0001} % *** Enter the CVPR Paper ID here
 \def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
 
 % Pages are numbered in submission mode, and unnumbered in camera-ready
@@ -219,7 +238,8 @@
 
 %%%%%%%%% ABSTRACT
 \begin{abstract}
-We reveal critical insights into problems of bias in state-of-the-art \gls{fr} systems using a novel \gls{bfw} dataset: data balanced for gender and ethnic groups. We show variations in the optimal scoring threshold for face-pairs across different subgroups. Thus, the conventional approach of learning a  global threshold for all pairs resulting in performance gaps among subgroups. By learning subgroup-specific thresholds, we not only mitigate problems in performance gaps but also show a notable boost in the overall performance. Furthermore, we do a human evaluation to measure the bias in humans, which supports the hypothesis that such a bias exists in human perception. For the \gls{bfw} database, source code, and more, visit \href{https://github.com/visionjo/facerec-bias-bfw}{github.com/visionjo/facerec-bias-bfw}
+We reveal critical insights into problems of bias in state-of-the-art \gls{fr} systems using a novel \gls{bfw} dataset: data balanced for gender and ethnic groups. We show variations in the optimal scoring threshold for face-pairs across different subgroups. Thus, the conventional approach of learning a  global threshold for all pairs resulting in performance gaps among subgroups. By learning subgroup-specific thresholds, we not only mitigate problems in performance gaps but also show a notable boost in the overall performance. Furthermore, we do a human evaluation to measure the bias in humans, which supports the hypothesis that such a bias exists in human perception. For the \gls{bfw} database, source code, and more, visit \href{http://cvpr2020.thecvf.com/submission/main-conference/author-guidelines#policies}{github}.
+% \href{https://github.com/visionjo/facerec-bias-bfw}{github.com/visionjo/facerec-bias-bfw}
 \end{abstract}
 
 
@@ -242,8 +262,8 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 % \end{figure}
     \begin{figure}[t!]
         \centering
-        \includegraphics[width=.9\linewidth]{figures/montage.pdf}
-        \caption{\textbf{\gls{bfw}.} The average face of its different subsets: \emph{top-left}: the entire \gls{bfw}; \emph{top-row} per race;  \emph{left-column}: per gender. The others represent the ethnicity and gender of the race and gender, respectively. Table~\ref{tab:ethnic-splits} defines the acronyms of subgroups.}
+        \includegraphics[width=.8\linewidth]{figures/montage.pdf}
+        \caption{\small{\textbf{\gls{bfw}.} Average face of the different subsets: \emph{top-left}: the entire \gls{bfw}; \emph{top-row} per race;  \emph{left-column}: per gender. The others represent the ethnicity and gender of the race and gender, respectively. Table~\ref{tab:ethnic-splits} defines the acronyms of subgroups.}}
         \label{fig:avg-faces}
     \end{figure}
     
@@ -303,7 +323,7 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
     For \textbf{(1)} we propose subgroup-specific (\ie optimal) thresholds; to address \textbf{(2)}, we introduce a new benchmark for measuring bias in \gls{fr}, \gls{bfw} (Table~\ref{tab:compared} \&~\ref{tab:ethnic-splits}). \gls{bfw} allows for a fair evaluation of \gls{fr} systems, while enabling demographic-specific ratings to be reported. We use \gls{bfw} to gain a deeper understanding of the extent of bias present in \gls{soa} \gls{cnn} used to encode faces. Then, we suggest a mechanism to mitigate problems of bias with more balanced performance ratings for different demographics. Specifically, we propose using an adaptive threshold that varies depending on the characteristics of detected facial attributes (\ie gender and ethnicity, Fig~\ref{fig:avg-faces}). We show an increase in accuracy with a balanced performance for different subgroups. Similarly, we show a positive effect of adjusting the similarity threshold based on the facial features of matched faces. Thus, selective use of similarity thresholds in current \gls{soa} \gls{fr} systems provides more intuition in \gls{fr} research with a method easy to adopt in practice. 
     
     
-    The contributions in this paper are 3-fold: (1) Built a balanced dataset as a proxy to measure verification performance per subgroup; (2) Analyzed an unwanted bias in scores of face pairs while showing that optimal thresholds determined per subgroup balances performance; (3) Showed bias causes skewness in ratings across demographics-- the typical use of a global threshold unfavorable. We mitigate the problem via adaptive thresholds; (4) Conducted human-evaluations to demonstrate bias in human perception.\footnote{NIH-certified, \textit{Protect Humans in Research}, \textcolor{red}{IRB 19-09-08}.}
+    The contributions of this work are 3-fold. (1) We built a balanced dataset as a proxy to measure verification performance per subgroup for studies of bias in \gls{fr}. (2) We revealed an unwanted bias in scores of face pairs - a bias that causes ratings to skew across demographics. For this, we showed that an adaptive threshold per subgroup balances performance (\ie the typical use of a global threshold unfavorable, which we address via optimal thresholds). (3) We surveyed humans to demonstrate bias in human perception.\footnote{NIH-certified, \textit{Protect Humans in Research}.}%19-09-08}.}
     % \begin{enumerate}
     %     \item Built a balanced dataset as a proxy to measure verification performance per subgroup.
     %     \item Analyzed an unwanted bias in scores of face pairs while showing that optimal thresholds determined per subgroup significantly boost and balance performances.
@@ -312,10 +332,25 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
     % \end{enumerate}
 
 
+\section{Background Information}
+    \subsection{Bias in \gls{ml}}
+        The progress and the commercial value of \gls{ml} is exciting; however, the trust of society in \gls{ml} will take time to build due to inherent biases. The exact definitions and implications of bias vary between sources, as do its sources and types. A common theme is that bias hinders performance ratings in ways that skew to a particular sub-population-- the source varies, whether from humans~\cite{windmann1998subconscious}, data and label types~\cite{tommasi2017deeper}, \gls{ml} models~\cite{amini2019uncovering, kim2019learning}, or evaluation protocols~\cite{stock2018convnets}. For instance, a vehicle-detection model might miss cars if training data was mostly trucks. In practice, many \gls{ml} systems learn on biased data, which could be detrimental for society. 
+
+
+    \subsection{Bias in \gls{fr}}
+        Problems of bias in \gls{fr} have been driven by different motivations; therefore, solutions have been posed for different matters. To name a few: data augmentation~\cite{yin2019feature}, one-shot learning~\cite{ding2018one}, demographic parity and fairness with priority on privacy~\cite{huang2018generative}, domain adaptation~\cite{wang2018racial}, differences in face-based attributes across demographics~\cite{wang2018they}, and even data exploration~\cite{muthukumar2019}. Yin~\etal proposed to augment the feature space of underrepresented classes using other classes with a diverse collection of samples to encourage distributions of underrepresented classes to more closely resemble that of the others~\cite{yin2019feature}. Similarly, others formulated the imbalanced class problem as one-shot learning, where a \gls{gan} was trained to generate face features to augment classes with fewer samples~\cite{ding2018one}. \gls{gapf} was proposed to create fair representations of the data in a quantifiable way, allowing for the finding of a de-correlation scheme from the data without access to its statistics~\cite{huang2018generative}. Wang~\etal defined subgroups at a finer-level (\ie Chinese, Japanese, Korean), and determined the familiarity of faces inter-subgroup~\cite{wang2018they}. Genders have also been used to make subgroups (\eg for analysis of gender-based face encodings~\cite{muthukumar2019}). Most recently,~\cite{wang2018racial} proposed adapting domains to bridge the bias gap by knowledge transfer, which was supported by a novel data collection, \gls{rfw}. The release of \gls{rfw} occurred after \gls{bfw} was built - although similar in terms of demographics, \gls{rfw} uses faces from MSCeleb~\cite{guo2016ms} for testing, and assumes CASIA-Face~\cite{yi2014learning} and VGG2~\cite{Cao18} were used to train. In contrast, our \gls{bfw} assumes VGG2 as the test set. 
+        % As shown in \cite{wang2018racial}, MSCeleb is highly imbalanced, primarily consisting of images of white individuals. 
+        % For this, we expect bias from data, for this is the training set. 
+        Furthermore, \gls{bfw} balances gender and race: \gls{rfw} splits subgroups by gender and race, while \gls{bfw} has gender, race, or both). 
+        % Thus, \gls{rfw} and \gls{bfw} complement one another. % - both add demographic for subjects with faces in renowned, large-scale \gls{fr} datasets.
+
+    
+Most similar to us is~\cite{das2018, demogPairs, lopez2019dataset, srinivas2019face} - each were motivated by insufficient paired data for studying bias in \gls{fr}; then, problems were addressed using labeled data from existing image collections. Specifically, Hupont~\etal curated a set of faces based on racial demographics (\ie \gls{a}, \gls{b}, and \gls{w}) called \gls{dp}~\cite{demogPairs}, while~\cite{srinivas2019face} honed in on adults versus children called \gls{itwcc}. Like the proposed \gls{bfw}, both were built by sampling existing databases, but with the addition of tags for the respective subgroups of interest. Besides, the additional data of \gls{bfw} (\ie added an additional subgroup \gls{i}, along with additional subjects with more faces for all subgroups), we also further split subgroups by gender. Furthermore, we focus on the problem of facial verification and the different levels of sensitivity in cosine similarity scores per subgroup.
+
     \begin{table*}[t!]
         
         \centering
-        \caption{\textbf{\gls{bfw} compared to related datasets.} Our \gls{bfw} is balanced across ID, gender, and ethnicity (Table~\ref{tab:ethnic-splits}). Compared with \gls{dp}, \gls{bfw} provides more samples per subject and subgroups per set, while only using a single resource, VGG2. \gls{rfw}, on the other hand, supports a different task (\ie domain adaptation), and focuses on race-distribution, but not the distribution of identities.}
+        \caption{\small{\textbf{\gls{bfw} compared to related datasets.} Our \gls{bfw} is balanced across ID, gender, and ethnicity (Table~\ref{tab:ethnic-splits}). Compared with \gls{dp}, \gls{bfw} provides more samples per subject and subgroups per set, while only using a single resource, VGG2. \gls{rfw}, on the other hand, supports a different task (\ie domain adaptation), and focuses on race-distribution, but not the distribution of identities.}}
         \scriptsize
         \begin{tabular}{rccccccc}%x{10mm}x{3mm}x{10mm}x{8mm}}%\toprule
         
@@ -329,21 +364,6 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
         \label{tab:compared}
     \end{table*}
     
-\section{Background Information}
-    \subsection{Bias in \gls{ml}}
-        The progress and the commercial value of \gls{ml} is exciting; however, the trust of society in \gls{ml} will take time to build due to inherent biases. The exact definitions and implications of bias vary between sources, as do its sources and types. A common theme is that bias hinders performance ratings in ways that skew to a particular sub-population-- the source varies, whether from humans~\cite{windmann1998subconscious}, data and label types~\cite{tommasi2017deeper}, \gls{ml} models~\cite{amini2019uncovering, kim2019learning}, or evaluation protocols~\cite{stock2018convnets}. For instance, a vehicle-detection model might miss cars if training data was mostly trucks. In practice, many \gls{ml} systems learn on biased data, which could be detrimental for society. 
-
-
-    \subsection{Bias in \gls{fr}}
-        Problems of bias in \gls{fr} have been driven by different motivations; therefore, solutions have been posed for different matters. To name a few: data augmentation~\cite{yin2019feature}, one-shot learning~\cite{ding2018one}, demographic parity and fairness with priority on privacy~\cite{huang2018generative}, domain adaptation~\cite{wang2018racial}, differences in face-based attributes across demographics~\cite{wang2018they}, and even data exploration~\cite{muthukumar2019}. Yin~\etal proposed to augment the feature space of underrepresented classes using other classes with a diverse collection of samples to encourage distributions of underrepresented classes to more closely resemble that of the others~\cite{yin2019feature}. Similarly, others formulated the imbalanced class problem as one-shot learning, where a \gls{gan} was trained to generate face features to augment classes with fewer samples~\cite{ding2018one}. \gls{gapf} was proposed to create fair representations of the data in a quantifiable way, allowing for the finding of a de-correlation scheme from the data without access to its statistics~\cite{huang2018generative}. Wang~\etal defined subgroups at a finer-level (\ie Chinese, Japanese, Korean), and determined the familiarity of faces inter-subgroup~\cite{wang2018they}. Genders have also been used to make subgroups (\eg for analysis of gender-based face encodings~\cite{muthukumar2019}). Most recently,~\cite{wang2018racial} proposed adapting domains to bridge the bias gap by knowledge transfer, which was supported by a novel data collection, \gls{rfw}. The release of \gls{rfw} occurred after \gls{bfw} was built - although similar in terms of demographics, \gls{rfw} uses faces from MSCeleb~\cite{guo2016ms} for testing, and assumes CASIA-Face~\cite{yi2014learning} and VGG2~\cite{Cao18} were used to train. In contrast, our \gls{bfw} assumes VGG2 as the test set. 
-        % As shown in \cite{wang2018racial}, MSCeleb is highly imbalanced, primarily consisting of images of white individuals. 
-        % For this, we expect bias from data, for this is the training set. 
-        Furthermore, \gls{bfw} balances gender and race: \gls{rfw} splits subgroups by gender and race, while \gls{bfw} splits by gender, race, or gender and race). 
-        % Thus, \gls{rfw} and \gls{bfw} complement one another. % - both add demographic for subjects with faces in renowned, large-scale \gls{fr} datasets.
-
-    
-Most similar to us is~\cite{das2018, demogPairs, lopez2019dataset, srinivas2019face} - each were motivated by insufficient paired data for studying bias in \gls{fr}; then, problems were addressed using labeled data from existing image collections. Specifically, Hupont~\etal curated a set of faces based on racial demographics (\ie \gls{a}, \gls{b}, and \gls{w}) called \gls{dp}~\cite{demogPairs}, while~\cite{srinivas2019face} honed in on adults versus children called \gls{itwcc}. Like the proposed \gls{bfw}, both were built by sampling existing databases, but with the addition of tags for the respective subgroups of interest. Besides, the additional data of \gls{bfw} (\ie added an additional subgroup \gls{i}, along with additional subjects with more faces for all subgroups), we also further split subgroups by gender. Furthermore, we focus on the problem of facial verification and the different levels of sensitivity in cosine similarity scores per subgroup.
-
 \subsection{Human bias in \gls{ml}}
 Bias is not unique to \gls{ml} - humans are also susceptible to a perceived bias. In fact, biases exist across race, gender, and even age~\cite{10.1007/978-3-030-13469-3_68, bar2006, meissner2001, nicholls2018}. Wang~\etal showed machines surpass human performance in discriminating between Japanese, Chinese, or Korean faces by nearly 150\%~\cite{wang2018they}, as humans just pass random (\ie 38.89\% accuracy).
 
@@ -365,39 +385,30 @@ Problems of bias in \gls{fr} motivated us to build \gls{bfw}. The data evenly re
 
 \vspace{1mm}
 \noindent\textbf{Compiling subject list.} 
-Subjects were sampled from VGG2~\cite{Cao18} - unlike others that depend on multiple sources, \gls{bfw} has fewer potential conflicts in train and test overlap with existing models. We used pre-trained ethnicity~\cite{ambekar2009name} and gender~\cite{levi2015age} classifiers to find candidates for the different subgroups.
+Subjects were sampled from VGG2~\cite{Cao18} - unlike others built from multiple sources, \gls{bfw} has fewer potential conflicts in train and test overlap with existing models. We used pre-trained ethnicity~\cite{ambekar2009name} and gender~\cite{levi2015age} classifiers to find candidates for the different subgroups.
 
 
 
 \vspace{1mm}
 \noindent\textbf{Detecting faces.} Faces were detected using MTCNN~\cite{zhang2016joint}.\footnote{\href{https://github.com/polarisZhao/mtcnn-pytorch}{https://github.com/polarisZhao/mtcnn-pytorch}} Then, assigned into one of two sets. Faces within detected bounding box (BB) regions extended out 130\% in each direction, with zero-padding as the boundary condition made-up one set. The second set were faces aligned and cropped for Sphereface~\cite{liu2017sphereface} (see the next step). Also, coordinates of the BB and the five landmarks from \gls{mtcnn} were stored as part of the static, raw data. For samples with multiple face detections, we used the BB area times the confidence score of the \gls{mtcnn} to determine the face most likely to be the subject of interest, with the others set aside and labeled \textit{miss-detection}. 
 
-\begin{figure}[!t] 
-	\centering    
- \glsunset{fpr}
-  \glsunset{fnr}
-	\includegraphics[width=\linewidth]{figures/detcurve-improved.pdf}
-		\caption{\textbf{\gls{det} curves.} \emph{Top-left}: per gender. \emph{Top-right}: per ethnicity. \emph{Bottom}: per subgroup (\ie combined). A dashed line shows a difference by about 2$\times$ in \gls{fpr} for the same threshold $\theta_{const}$. \gls{fnr} is the match error count (closer to the bottom is better).}
-		\glsreset{det}\glsreset{fpr}
-\label{fig:detcurves} 
-\end{figure} 
+
 
 \vspace{1mm}
 \noindent\textbf{Validating labels.} 
 Faces of \gls{bfw} were encoded using the original implementation of the \gls{soa} Sphereface~\cite{liu2017sphereface}: applying an affine transformation to align faces according to predefined eye locations, each face fed through twice (\ie the original and horizontally flipped), with the final encoding obtained by fusing the two features by average pooling (\ie 512 D). A matrix of cosine similarity scores was then generated for each subject and removed samples (\ie rows) with median scores below threshold $\theta=0.2$ (set manually). Mathematically, the $n^{th}$ sample for the $j^{th}$ subject with $N_j$ faces was removed if the ordinal rank of its score $n = \frac{P\times N}{100}\geq\theta$, where $P=50$. In other words, the median (\ie 50 percentile) of all scores for a faces with respect to all of faces for the respective subject must pass a threshold of $\theta=0.2$; else, the face is dropped. This allowed us to quickly prune \gls{fp} face detections. Following~\cite{robinson2016families, robinson2018visual}, we built a JAVA tool to visually validate the remaining faces. For this, the faces were ordered by decreasing confidence, with confidence set as the average score, and then displayed as image icons on top toggling buttons arranged as a grid in a sliding pane window. Labeling then consisted of going subject-by-subject and flagging faces of \emph{imposters}.
 
-
-\vspace{1mm}
-\noindent\textbf{Sampling faces and creating folds.} We created lists of pairs in five-folds with subjects split evenly per subject and without overlap across folds. Furthermore, a balance in the number of faces per was obtained by sampling twenty-five faces at random from each. Next, we generated a list of all the face pairs per subject, resulting in $\sum_{l=1}^{L}\sum_{k=1}^{K_d} {N_k \choose 2}$ positive pairs, where the number of faces of all $K_l$ subjects $N_k=25$  for each of the $L$ subgroups (Table~\ref{tab:ethnic-splits}). Next, we assigned subjects to a fold. To preserve balance across folds, we sorted subjects by the number of pairs and then started assigning to alternating folds from the one with the most samples. Note, this left no overlap in identity between folds. Later, a negative set from samples within the same subgroup randomly matched until the count met that of the positive. Finally, we doubled the total count with negative pairs from across subgroups but in the same fold.
-\begin{figure}[t!] 
-	\glsunset{fpr}
-	\glsunset{sdm}
-	\centering
-	\centering
-	\includegraphics[width=1\linewidth]{figures/violinplots.pdf}
-		\caption{\textbf{\Gls{sdm} across subgroups.} Scores of \emph{imposters} have medians around 0.3 but with variations in upper percentiles; \emph{genuine} pairs vary in mean and spread (\eg \gls{af} has more area of overlap). A threshold varying across different subgroups yields a constant \gls{fpr}.} \label{fig:detection-model} 
-		\glsreset{sdm}
+\begin{figure}[!t] 
+	\centering    
+ \glsunset{fpr}
+  \glsunset{fnr}
+	\includegraphics[width=.9\linewidth]{figures/detcurve-improved.pdf}
+		\caption{\small{\textbf{\gls{det} curves.} \emph{Top-left}: per gender. \emph{Top-right}: per ethnicity. \emph{Bottom}: per subgroup (\ie combined). Dashed line shows about 2$\times$ difference in \gls{fpr} for the same threshold $\theta_{const}$. \gls{fnr} is the match error count (closer to the bottom is better).}}
+		\glsreset{det}\glsreset{fpr}
+\label{fig:detcurves} 
 \end{figure} 
+\vspace{1mm}
+\noindent\textbf{Sampling faces and creating folds.} We created lists of pairs in five-folds with subjects split evenly per subject and without overlap across folds. Furthermore, a balance in the number of faces per was obtained by sampling twenty-five faces at random from each. Next, we generated a list of all the face pairs per subject, resulting in $\sum_{l=1}^{L}\sum_{k=1}^{K_d} {N_k \choose 2}$ positive pairs, where the number of faces of all $K_l$ subjects $N_k=25$  for each of the $L$ subgroups (Table~\ref{tab:ethnic-splits}). Next, we assigned subjects to a fold. To preserve balance across folds, we sorted subjects by the number of pairs and then started assigning to alternating folds from the one with the most samples. Note, this left no overlap in identity between folds. Later, a negative set from samples within the same subgroup randomly matched until the count met that of the positive. Finally, we doubled the number with negative pairs from across subgroups but in the same fold.
 
 
 % \vspace{-5pt}
@@ -405,7 +416,7 @@ Faces of \gls{bfw} were encoded using the original implementation of the \gls{so
 % \gls{lfw}~\cite{LFWTech}, a commonly used benchmark for ~\gls{fr}, reserves specific train-test face-pair lists. 
 \Gls{fv} is the special case of the two-class (\ie boolean) classification. Hence, pairs are labeled as the ``same'' or ``different'' \textit{genuine} pairs (\ie \textit{match}) or \textit{imposter} (\ie \textit{mismatch}), respectively. This formulation (\ie \gls{fv}) is highly practical for applications like access control, re-identification, and surveillance. Typically, training a separate model for each unique subject is infeasible. Firstly, the computational costs compound as the number of subjects increase.  Secondly, such a scheme would require model retraining each time a new person is added. Instead, we train models to encode facial images in a feature space that captures the uniqueness of a face, to then determine the outcome based on the output of a scoring (or distance) function. Formally put:
 \begin{equation}\label{eg:matcher}
-    f_{boolean}(\vec{x}_i, \vec{x}_j) = d(\vec{x}_i, \vec{x}_j) \leq \theta
+    f_{boolean}(\vec{x}_i, \vec{x}_j) = d(\vec{x}_i, \vec{x}_j) \leq \theta,
 \end{equation}
 
 where $f_{boolean}$ is the \textit{matcher} of the feature vector $\vec{x}$ for the $i^{th}$ and $j^{th}$ sample~\cite{LFWTech}.
@@ -415,6 +426,15 @@ $
 s_l= \frac{f_i\cdot f_j}{||f_i||_2||f_j||_2}
 $ is the closeness of the $l^{th}$ pair. 
 
+\begin{figure}[t!] 
+	\glsunset{fpr}
+	\glsunset{sdm}
+	\centering
+	\centering
+	\includegraphics[width=1\linewidth]{figures/violinplots.pdf}
+		\caption{\small{\textbf{\Gls{sdm} across subgroups.} Scores of \emph{imposters} have medians around 0.3 but with variations in upper percentiles; \emph{genuine} pairs vary in mean and spread (\eg \gls{af} has more area of overlap). A threshold varying across different subgroups yields a constant \gls{fpr}.}} \label{fig:detection-model} 
+		\glsreset{sdm}
+\end{figure} 
 
 \subsection{Human assessment}\label{subsec:human-assessment}
 We evaluated human on face pairs focusing on two racial groups: Chinese and Caucasians. To focus on the experiment, we honed-in on two groups, white Americans (W) and Chinese from China (C). The purpose was to minimize variability by only analyzing the subsets of the broader groups of whites and Asians. 
@@ -424,8 +444,8 @@ Samples were collected by recruiting subjects from multiple sources (\eg social 
 
 \begin{figure}[t!]
 	\centering    
-	\includegraphics[width=.85\linewidth]{figures/confusion.pdf}
-		\caption{\small{\textbf{Confusion matrix.} Percent error (Rank 1) for all faces of \gls{bfw} queried against all others. Notice errors concentrate within a subgroup, consistent with the \gls{sdm} in Fig.~\ref{fig:detection-model} (\ie \gls{af} show worst performance, and is mostly confused with faces of the same demographic). This plot is evidence that while race/ethnicity may be challenging to define, the subgroups are meaningful.}}
+	\includegraphics[width=.75\linewidth]{figures/confusion.pdf}
+		\caption{\small{\textbf{Confusion matrix.} Percent error (Rank 1, \%) for all faces of \gls{bfw} versus all others. Error concentrates within a subgroup - consistent with the \gls{sdm} (Fig.~\ref{fig:detection-model}), as \gls{af} performs the worst, confusing mostly within subgroup. This plot is evidence that while race/ethnicity may be challenging to define, the subgroups are meaningful.}}
 		\label{fig:confusion} 
 \end{figure} 
 
@@ -442,7 +462,21 @@ A single \gls{cnn} was used as a means to control the experiments. For this, Sph
 Fig.~\ref{fig:detection-model} shows score distributions for faces of the same (\ie \emph{Genuine}) and different (\ie \emph{Imposter}) identity, with a subgroup per \gls{sdm} plot. Notice that score distributions for imposters tend to peak about zero for all subgroups, and with minimal deviation comparing modes of the different plots. On the other hand, the score distribution of the \emph{genuine} pairs varies across subgroups in location (\ie score value) and spread (\ie overall shape). Asian Fem
 Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast majority of errors occur in the intra-subgroup. It is interesting to note that while the definition of  each group  based on ethnicity and race may not be crisply defined, the confusion matrix indicates that in practice the \gls{cnn} finds that the groups are effectively separate. The categories are, therefore, meaningful in the context of \gls{fr}.
 
-
+\begin{figure}[t!]
+ 
+    % \begin{subfigure}[t]{\linewidth}
+    
+       \centering
+%     \includegraphics[width=.85\linewidth]{figures/global_threshold_fpr_percent_diff.pdf}
+%     \caption{Global threshold ($t_g$)}
+%  \end{subfigure}
+%     \begin{subfigure}[t]{\linewidth}
+%       \centering
+    \includegraphics[width=.95\linewidth]{figures/adaptive_fpr_percent_diff_complete.pdf}
+    % \caption{Optimal threshold ($t_o$)}
+%   \end{subfigure}
+    \caption{\small{\textbf{Percent difference from intended \gls{fpr}.} \emph{Top:} $t_g$ yields \gls{fpr} the span as large as 2$\times$ (\ie 200\%) that intended (\ie \gls{wm} for 1e-4). Furthermore, \gls{f} subgroups tend to perform worse than intended for all cases (while \gls{m} tend to overshoot intended performance, with exception of \gls{im} in for \gls{fpr}=1e-4). \emph{Bottom:} Subgroup-specific thresholds reduces this difference to near zero, where there are small differences, the percent difference across different subgroups is fair (\ie FPR=1e-4).}}\label{fig:percent:difference}
+\end{figure}
 \subsection{\gls{det} analysis}
 \glsunset{m}
 \glsunset{f}
@@ -450,18 +484,18 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 \begin{figure*}[h!]
     \centering
     \begin{subfigure}[t]{.3\linewidth}
-    \includegraphics[width=.75\linewidth]{figures/curve_vgg16_subgroups-crop.pdf}
+    \includegraphics[width=.71\linewidth]{figures/curve_vgg16_subgroups-crop.pdf}
     \caption{VGG16~\cite{simonyan2014very}}
  \end{subfigure}
     \begin{subfigure}[t]{.27\linewidth}
-    \includegraphics[width=.8\linewidth]{figures/curve_resnet50_subgroups-crop.pdf}
+    \includegraphics[width=.75\linewidth]{figures/curve_resnet50_subgroups-crop.pdf}
     \caption{ResNet50~\cite{he2016deep}}
    \end{subfigure}
     \begin{subfigure}[t]{.27\linewidth}
-    \includegraphics[width=.8\linewidth]{figures/curve_senet50_subgroups-crop.pdf}
+    \includegraphics[width=.75\linewidth]{figures/curve_senet50_subgroups-crop.pdf}
     \caption{SENet~\cite{hu2018squeeze}}
     \end{subfigure}
-    \caption{\textbf{\gls{det} curves for different CNNs}. \gls{fnr} (\%) (vertical) vs \gls{fpr}  (horizontal, log-scale) for VGG2~\cite{Cao18} models with different backbones (VGG16, Resnet50, SEnet50). Lower is better. For each plot, \gls{wm} is the top-performer, while \gls{af} is the worst. The the ordering of the curves is roughly the same for each backbone.}\label{fig:sdm-appendix-a}
+    \caption{\small{\textbf{\gls{det} curves for different CNNs}. \gls{fnr} (\%) (vertical) vs \gls{fpr}  (horizontal, log-scale) for VGG2~\cite{Cao18} models with different backbones (VGG16, Resnet50, SEnet50). Lower is better. For each plot, \gls{wm} is the top-performer, while \gls{af} is the worst. The the ordering of the curves is roughly the same for each backbone.}}\label{fig:sdm-appendix-a}
 \end{figure*}
 
 
@@ -474,7 +508,7 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 \begin{table}[b!]
 \glsunset{tar}
 \glsunset{far}
-\caption{\small{\textbf{\gls{tar} at intervals of \gls{far}}. For each subgroup, and overall average \gls{far}, listed are the \gls{tar} scores for a global threshold (top) and the proposed category-based threshold (bottom). Higher is better. The proposed shows improvement in all cases.}}\label{tab:ethnicy-far} 
+\caption{\small{\textbf{\gls{tar} at intervals of \gls{far}}. gls{far}, listed are the \gls{tar} scores for a global threshold (top) and the proposed category-based threshold (bottom). Higher is better.}}\label{tab:ethnicy-far} 
 %  \vspace{-2mm}
 \begin{center}
 \scriptsize
@@ -511,7 +545,7 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 The gender-based \gls{det} curve shows a difference in performances between \gls{m} and \gls{f} with a fixed threshold (dashed line). Similar effects exist for the other curves as well (lines omitted to declutter). For many \gls{fr} applications, systems are operated at the highest \gls{fpr} allowed, so the line of constant threshold indicates that a single threshold produces different operating points (\ie \gls{fpr}), which is undesirable.  The difference in \gls{fpr} is approximately a factor of two-- quite large indeed. If this is the case in an industrial system, one would expect a difference in about double the false positives to be reported based on subgroup alone. The potential ramifications of such a bias should not be overlooked, which it has not as of lately-- gaining the interest in even main-stream media ~\cite{england2019,snow2018}.
 
 % \subsubsection{Other \gls{cnn} models.}~\label{app:sec:other:models}
-Variations in optimal threshold exist across models (Fig.~\ref{fig:sdm-appendix-a}). Like in Fig.~\ref{fig:detcurves}, the \gls{det} curves for three \gls{cnn}-based models, each trained on VGG2 with softmax but with different backbones.\footnote{\href{https://github.com/rcmalli/keras-vggface}{https://github.com/rcmalli/keras-vggface}} Notice similar trends across subgroups and models, which is consistent with  Sphereface as well (Fig.~\ref{fig:detcurves}). For example, the plots generated with Spherface and VggFace2 all have the \gls{wm} curve at the bottom (\ie best) and \gls{af} on top (\ie worst). Thus, the dditional \gls{cnn}-based models demonstrate the same phenomena: proportional to the overall model performance, exact in which the ordering subgroups insensitivity in scores space.
+Variations in optimal threshold exist across models (Fig.~\ref{fig:sdm-appendix-a}). Like in Fig.~\ref{fig:detcurves}, the \gls{det} curves for three \gls{cnn}-based models, each trained on VGG2 with softmax but with different backbones.\footnote{\href{https://github.com/rcmalli/keras-vggface}{https://github.com/rcmalli/keras-vggface}} Notice similar trends across subgroups and models, which is consistent with  Sphereface as well (Fig.~\ref{fig:detcurves}). For example, the plots generated with Spherface and VggFace2 all have the \gls{wm} curve at the bottom (\ie best) and \gls{af} on top (\ie worst). Thus, the additional \gls{cnn}-based models demonstrate the same phenomena: proportional to the overall model performance, exact in which the ordering subgroups insensitivity in scores space.
 
 \subsection{Verification threshold} \label{subsec:analysis:verification}
 We seek to reduce the bias between subgroups. Such that an operating point (\ie \gls{fpr}) is constant across subgroups. To accomplish that, we used a per subgroup threshold. In \gls{fv}, we consider one image as the query and all others as the test. For this, the ethnicity of the query image is assumed. We can then examine the \gls{det} curves and pick the best threshold per subgroup for a certain \gls{fpr}.
@@ -520,10 +554,48 @@ We evaluated \gls{tar} for specific \gls{far} values. As described in Section~\r
 
 Even for lower \gls{far}, there are notable improvements, often of the order of 1\%, which can be challenging to achieve when \gls{far} is near $\geq$90\%. More importantly, each subgroup has the desired \gls{fpr}, so that substantial differences in \gls{fpr} will remain unfounded. We experimented with ethnicity estimators on both the query and test image, which yielded similar results to those reported here.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[t!]
+\begin{center}
+    \caption{\small{\textbf{Human assessment (quantitative).} Subgroups listed per row (\ie human) and column (\ie image). Note, most do the best intra-subgroup (\textcolor{blue}{blue}), and second-best (\textcolor{red}{red}) intra-subgroup but inter-gender. WF performs the best; WF pairs are most correctly matched.}}
+    % CF shows the least variation, but with the lowest accuracy. WF shows the best accuracy, in human performance and on face pairs of that subgroup.}}
+    \label{tab:humsn-eval-results} 
+    % \vspace{-5mm}
+    %  \vspace{-2mm}
+\footnotesize
+\scalebox{0.94}{
+\begin{tabular}{c}
+\begin{tabular}{c l c c c cc}
+&&\multicolumn{4}{c}{\textbf{Image}}\\
+   \multicolumn{2}{c}{(Acc, \%)}& CF  & CM & WF &WM& Avg\\
+\end{tabular}\\
+\begin{tabular}{c l| r r r r| r}
+\cline{3-7}
+       &CF &\  \textbf{\textcolor{blue}{52.9}}&   \textbf{\textcolor{red}{48.0}}&43.8&44.7 &47.4 \\
+         \multirow{\items}{*}{\rotatebox{90}{\textbf{Human}}} \hspace{-5mm}
+        &CM &  \textbf{\textcolor{red}{45.6}} & \textbf{\textcolor{blue}{50.4}}  & 44.4 &36.2 &44.1 \\
+       
+        &WF & 44.7 &43.8 & \textbf{\textcolor{blue}{57.3}}& \textbf{\textcolor{red}{48.0}} & \textbf{48.5} \\
+        &WM & 30.1&\textbf{\textcolor{red}{47.4}} &  45.3 & \textbf{\textcolor{blue}{56.1}} & 44.7\\\cline{3-7}
+        &Avg &  43.3& 47.4&\textbf{47.7} &46.3 &46.2\\
+ \end{tabular}
+ \end{tabular}
+ }
+ 
+ \end{center}
+%  \vspace{-7mm}
+\end{table} 
+
+
+\subsection{Human evaluation}
+Subjects of a subgroup likely have mostly been exposed to others of the same (Table~\ref{tab:humsn-eval-results} and Fig.~\ref{fig:human-eval}). Therefore, it is expected they would be best at labeling their own; similar for the same ethnicity, but another gender. Our findings concur. Each subgroup is best at labeling their type, and then second best at labeling the same ethnicity but opposite sex. Interestingly, each group of images is best tagged by the corresponding subgroup, with the second-best having the same ethnicity and opposite gender. On average, subgroups are comparable at labeling images. Analogous to the \gls{fr} system, performance ratings differ when analyzing within and across subgroups. In other words, performance on \gls{bfw} improved with subgroup-specific thresholds. Similarly, humans tend to better recognize individuals by facial cues of the same or similar demographics. Put differently, as the recognition performances drop with a global threshold optimized for one subgroup and deployed on another, human performance tends to drop when across subgroups (\ie most familiar intra-subgroup; a performance drop for other, less familiar subgroups).
+ 
+%  for it better adapts wh specific to subgroup) shift in sensitivity across subgroups when deep encodings are compared, the underlying mechanism 
+
 \begin{figure}[t!] 
 	\centering    
-	\includegraphics[width=.85\linewidth] {figures/human_eval.pdf}
-		\caption{\small{\textbf{Qualitative results of human assessment.} $\checkmark$ for \emph{match}; $\times$ for \emph{non-match}. Accuracy scores shown as bar plots. Humans are most successful at recognizing their own subgroup, with a few exceptions (\eg bottom).}}
+	\includegraphics[width=.69\linewidth] {figures/human_eval.pdf}
+		\caption{\small{\textbf{Human assessment (qualitative).} $\checkmark$ for \emph{match}; $\times$ for \emph{non-match}. Accuracy scores shown as bar plots. Humans are most successful at recognizing their own subgroup, with a few exceptions (\eg bottom).}}
 		% (\eg bottom row). } Result summary in Table~\ref{tab:human-eval}.
 		\label{fig:human-eval} 
 % 		\vspace{-1mm}
@@ -532,36 +604,39 @@ Even for lower \gls{far}, there are notable improvements, often of the order of 
 % \vspace{-5pt}
 
 
-
-
-\subsection{Human evaluation}
- Quantitative and qualitative results are in Table~\ref{tab:humsn-eval-results} and Fig.~\ref{fig:human-eval}, respectively. Subjects of a subgroup likely have mostly been exposed to others of the same. Therefore, it is expected they would be best at labeling their own; similar for the same ethnicity, but another gender. Our findings concur. Each subgroup is best at labeling their type, and then second best at labeling the same ethnicity but opposite sex. Interestingly, each group of images is best tagged by the corresponding subgroup, with the second-best having the same ethnicity and opposite gender. On average, subgroups are comparable at labeling images. Analogous to the \gls{fr} system, performance ratings differ when analyzing within and across subgroups. In other words, performance on \gls{bfw} improved with subgroup-specific thresholds. Similarly, humans tend to better recognize individuals by facial cues of the same or similar demographics. Put differently, as the recognition performances drop with a global threshold optimized for one subgroup and deployed on another, human performance tends to drop when across subgroups (\ie most familiar with the same subgroup; performance seems to drop when faced with another, less familiar subgroup).
- 
-%  for it better adapts wh specific to subgroup) shift in sensitivity across subgroups when deep encodings are compared, the underlying mechanism 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[t!]
-\begin{center}
-    \caption{\small{\textbf{Quantitative of human assessment.} Different subgroups listed per row and column. Note that each subject is best within their subgroup, and second-best within the same subgroup but different gender. CF shows the least variation, but with the lowest accuracy. CM shows the best accuracy, but second to \gls{wm} in deviation from the mean. Thus, scores for males vary more than females.}}
-    \label{tab:humsn-eval-results} 
-    %  \vspace{-2mm}
-\footnotesize
-\scalebox{0.8}{
-\begin{tabular}{l c c c c c}
-        &  CF  &      CM     &   WF     &   WM     &  Avg\\\midrule
-        CF &  \textbf{\textcolor{blue}{52.9}}&   \textbf{\textcolor{red}{48.0}}&43.8&44.7 &47.4$\pm$4.1 \\
-        CM &  \textbf{\textcolor{red}{45.6}} & \textbf{\textcolor{blue}{0.504}}  & 44.4 &36.2 &44.1$\pm$5.9 \\
-        WF & 44.7 &43.8 & \textbf{\textcolor{blue}{0.573}}& \textbf{\textcolor{red}{48.0}} & 48.5$\pm$6.2 \\
-        WM & 30.1&\textbf{\textcolor{red}{47.4}} &  45.3 & \textbf{\textcolor{blue}{56.1}} & 44.7$\pm$10.8 \\\midrule
-        Avg &  43.3& 47.4&47.7 &46.3 &46.2$\pm$2.0\\
- \end{tabular}}
- \end{center}
-%  \vspace{-7mm}
-\end{table} 
+% \scalebox{0.8}{
+% \begin{tabular}{l c c c c c}
+% \multicolumn{6}{c}{\textbf{Image}}\\
+%         &  CF  &      CM     &   WF     &   WM     &  Avg\\\midrule
+%         CF &  \textbf{\textcolor{blue}{52.9}}&   \textbf{\textcolor{red}{48.0}}&43.8&44.7 &47.4$\pm$4.1 \\
+%         CM &  \textbf{\textcolor{red}{45.6}} & \textbf{\textcolor{blue}{0.504}}  & 44.4 &36.2 &44.1$\pm$5.9 \\
+%         WF & 44.7 &43.8 & \textbf{\textcolor{blue}{0.573}}& \textbf{\textcolor{red}{48.0}} & 48.5$\pm$6.2 \\
+%         WM & 30.1&\textbf{\textcolor{red}{47.4}} &  45.3 & \textbf{\textcolor{blue}{56.1}} & 44.7$\pm$10.8 \\\midrule
+%         Avg &  43.3& 47.4&47.7 &46.3 &46.2$\pm$2.0\\
+%  \end{tabular}}
+%  \end{center}
+% %  \vspace{-7mm}
+% \end{table} 
+% \newcommand\items{4}   %Number of classes
+% \arrayrulecolor{white} %Table line colors
+% \noindent\begin{tabular}{cc*{\items}{|E}|}
+% \multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{\items}{c}{Image} \\ \hhline{~*\items{|-}|}
+% \multicolumn{1}{c}{} & 
+% \multicolumn{1}{c}{} & 
+% \multicolumn{1}{c}{CF} & 
+% \multicolumn{1}{c}{{CM}} & 
+% \multicolumn{1}{c}{{WF}}&
+% \multicolumn{1}{c}{{WM}}\\ \hhline{~*\items{|-}|}
+% \multirow{\items}{*}{\rotatebox{90}{Labeler}} 
+% &Class A  & 100   & 0  & 10   \\ \hhline{~*\items{|-}|}
+% &Class B  & 10   & 80  & 10   \\ \hhline{~*\items{|-}|}
+% &Class C  & 30   & 0   & 70   \\ \hhline{~*\items{|-}|}
+% &Class C  & 30   & 0   & 70   \\ \hhline{~*\items{|-}|}
+% \end{tabular}
 
 \glsresetall
 \section{Conclusion}
-We introduce a new data set \gls{bfw} with eight subgroups balanced across gender and ethnicity. With this, and upon highlighting the challenges and shortcomings of grouping subjects as a single subset, we provide evidence that forming subgroups is meaningful, as the FR algorithm rarely makes mistakes across subgroups. We used an \textit{off-the-shelf} Sphereface, hypothesizing this SOTA CNN suffers from bias because of the imbalanced train-set. Once established that the results do suffer from problems of bias, we observed that the same threshold across ethnic and gender subgroups leads to differences in the FPR up to a factor of two, which is seemingly the cause of the frenzy about bias in FR in main-stream media. Furthermore, we ameliorate these differences with a per-subgroup threshold, leveling out FPR, and achieving a higher TPR. We hypothesized that most humans grew amongst more than their own demographic and, therefore, effectively learn from imbalanced datasets-- a human evaluation validated that humans are biased, as most recognized their personal demographic best. The focused research findings presented here, along with the public database included, are extendable in vast ways. Thus, we see this as the slither to a much larger problem of bias in ML.
+We introduce a new data set \gls{bfw} with eight subgroups balanced across gender and ethnicity. With this, and upon highlighting the challenges and shortcomings of grouping subjects as a single subset, we provide evidence that forming subgroups is meaningful, as the FR algorithm rarely makes mistakes across subgroups. We used an \textit{off-the-shelf} Sphereface, hypothesizing this SOTA CNN suffers from bias because of the imbalanced train-set. Once established that the results do suffer from problems of bias, we observed that the same threshold across ethnic and gender subgroups leads to differences in the \gls{fpr} up to a factor of two. Furthermore, the percent difference from in which is seemingly the cause of the frenzy about bias in FR in main-stream media. Furthermore, we ameliorate these differences with a per-subgroup threshold, leveling out FPR, and achieving a higher TPR. We hypothesized that most humans grew amongst more than their own demographic and, therefore, effectively learn from imbalanced datasets-- a human evaluation validated that humans are biased, as most recognized their personal demographic best. The focused research findings presented here, along with the public database included, are extendable in vast ways. Thus, we see this as the slither to a much larger problem of bias in ML.
 
 
 
