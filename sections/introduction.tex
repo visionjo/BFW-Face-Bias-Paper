@@ -13,12 +13,7 @@
     \caption{\small{\textbf{Depiction of biometrics.} The \gls{sdm} (\emph{top-left}) shows the sensitivity related to a single threshold $t_g$. Translated to error rate (\emph{bottom-left}), a direct trade-off between FNP and FPR. In practice, this is entirely application dependent. Specifically, the specific chose in desired FPR (\%) (\emph{bottom-right}).}}
     \label{fig:biometrics}
 \end{figure}
-    % \begin{figure}[t!]
-    %     \centering
-    %     \includegraphics[width=.8\linewidth]{figures/montage.pdf}
-    %     \caption{\small{\textbf{\gls{bfw}.} Average face of the different subsets: \emph{top-left}: the entire \gls{bfw}; \emph{top-row} per race;  \emph{left-column}: per gender. The others represent the ethnicity and gender of the race and gender, respectively. Table~\ref{tab:ethnic-splits} defines the acronyms of subgroups.}}
-    %     \label{fig:avg-faces}
-    % \end{figure}
+
     
     When comparing scores, typically, a fixed threshold sets the decision boundary (Fig.~\ref{fig:biometrics}). Thus, features of the same identity must satisfy a criterion via a single value~\cite{deng2019arcface, liu2017sphereface, wang2018additive, wang2018cosface}. However, we found that a single (\ie global) threshold is a crude measure that leads to skewed errors - the held-out set used to determine the threshold tends to share the same distribution with the test data, which favors specific demographics that are a majority. That skew, the difference in the performance of an algorithm of certain demographics, is our definition of bias. A key question is: \emph{is \gls{fr} too biased, or not?} 
     
@@ -52,16 +47,7 @@
         % Acc$@t_o$ & 0.942 &0.952 &0.968 &0.961 &0.960 &0.962 & 0.974 &0.982 & 0.963 $\pm$ 0.012\\
         \bottomrule
     \end{tabular}}
-    % \glsunset{af}
     }
-    % % \glsunset{af}
-    % \glsunset{am}
-    % \glsunset{bf}
-    % \glsunset{bm}
-    % \glsunset{if}
-    % \glsunset{im}
-    % \glsunset{wf}
-    % \glsunset{wm}
     % \vspace{-12pt}
 \end{table*}
 
@@ -71,15 +57,9 @@
     
     The adverse effects of a global threshold are two-fold: \textbf{(1)} the mapping produced by a \gls{cnn} is nonuniform. Therefore, distances between pairs of faces in different demographics vary in distribution of similarity scores (Fig~\ref{fig:detection-model}); \textbf{(2)} the evaluation set is imbalanced as well. Particular demographics making up a majority of the population will carry most weight on the reported performance ratings. Reported results favor the common traits over the underrepresented. Alas, demographics like gender, ethnicity, race, and age are underrepresented in most public datasets~\cite{merler2019diversity, wang2018racial}. 
     
-    % The result is various types of biases in FR systems in favor of or against particular demographics remain a question.
     
     For \textbf{(1)} we propose subgroup-specific (\ie optimal) thresholds; to address \textbf{(2)}, we introduce a new benchmark for measuring bias in \gls{fr}, \gls{bfw} (Table~\ref{tab:compared} \&~\ref{tab:ethnic-splits}). \gls{bfw} allows for a fair evaluation of \gls{fr} systems, while enabling demographic-specific ratings to be reported. We use \gls{bfw} to gain a deeper understanding of the extent of bias present in \gls{soa} \gls{cnn} used to encode faces. Then, we suggest a mechanism to mitigate problems of bias with more balanced performance ratings for different demographics. Specifically, we propose using an adaptive threshold that varies depending on the characteristics of detected facial attributes (\ie gender and ethnicity, Fig~\ref{fig:avg-faces}). We show an increase in accuracy with a balanced performance for different subgroups. Similarly, we show a positive effect of adjusting the similarity threshold based on the facial features of matched faces. Thus, selective use of similarity thresholds in current \gls{soa} \gls{fr} systems provides more intuition in \gls{fr} research with a method easy to adopt in practice. 
     
     
     The contributions of this work are 3-fold. (1) We built a balanced dataset as a proxy to measure verification performance per subgroup for studies of bias in \gls{fr}. (2) We revealed an unwanted bias in scores of face pairs - a bias that causes ratings to skew across demographics. For this, we showed that an adaptive threshold per subgroup balances performance (\ie the typical use of a global threshold unfavorable, which we address via optimal thresholds). (3) We surveyed humans to demonstrate bias in human perception (NIH-certified, \textit{Protect Humans in Research}).%\footnote{NIH-certified, \textit{Protect Humans in Research}.}%19-09-08}.}
-    % \begin{enumerate}
-    %     \item Built a balanced dataset as a proxy to measure verification performance per subgroup.
-    %     \item Analyzed an unwanted bias in scores of face pairs while showing that optimal thresholds determined per subgroup significantly boost and balance performances.
-    %     \item Showed bias causes inconsistencies in ratings across demographics-- the typical use of a global threshold unfavorable. We mitigate the problem via adaptive thresholds.
-    %     \item Conducted human-evaluations to demonstrate bias in human perception.\footnote{NIH-certified, \textit{Protect Humans in Research}, \textcolor{red}{IRB 19-09-08}.}
-    % \end{enumerate}
+

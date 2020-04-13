@@ -225,24 +225,8 @@
     % \thanks{}% <-this % stops a space
 }
 
-% \author{First Author\\
-% Institution1\\
-% Institution1 address\\
-% {\tt\small firstauthor@i1.org}
-% % For a paper whose authors are all at the same institution,
-% % omit the following lines up until the closing ``}''.
-% % Additional authors and addresses can be added with ``\and'',
-% % just like the second author.
-% % To save space, use either the email address or home page, not both
-% \and
-% Second Author\\
-% Institution2\\
-% First line of institution2 address\\
-% {\tt\small secondauthor@i2.org}
-% }
 
 \maketitle
-%\thispagestyle{empty}
 
 %%%%%%%%% ABSTRACT
 \begin{abstract}
@@ -252,11 +236,8 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{bibunit}
 \input{sections/introduction}
 \input{sections/relatedworks}
-
-
 
 \begin{figure}[t!]
     \centering
@@ -273,7 +254,7 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 
 \begin{figure}[t!]
        \centering
-    \includegraphics[width=.95\linewidth]{figures/adaptive_fpr_percent_diff_complete.pdf}
+    \includegraphics[width=.95\linewidth]{figures/fpr_percent_diff-crop.pdf}
     \caption{\small{\textbf{Percent difference from intended \gls{fpr}.} \emph{Top:} $t_g$ yields \gls{fpr} the span as large as 2$\times$ (\ie 200\%) that intended (\ie \gls{wm} for 1e-4). Furthermore, \gls{f} subgroups tend to perform worse than intended for all cases (while \gls{m} tend to overshoot intended performance, with exception of \gls{im} in for \gls{fpr}=1e-4). \emph{Bottom:} Subgroup-specific thresholds reduces this difference to near zero, where there are small differences, the percent difference across different subgroups is fair (\ie FPR=1e-4).}}\label{fig:percent:difference}
 \end{figure}
 

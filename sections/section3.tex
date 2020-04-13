@@ -33,7 +33,7 @@ Faces of \gls{bfw} were encoded using the original implementation of the \gls{so
 		\glsreset{det}\glsreset{fpr}
 \label{fig:detcurves} 
 \end{figure} 
-\vspace{1mm}
+%\vspace{1mm}
 \noindent\textbf{Sampling faces and creating folds.} We created lists of pairs in five-folds with subjects split evenly per subject and without overlap across folds. Furthermore, a balance in the number of faces per was obtained by sampling twenty-five faces at random from each. Next, we generated a list of all the face pairs per subject, resulting in $\sum_{l=1}^{L}\sum_{k=1}^{K_d} {N_k \choose 2}$ positive pairs, where the number of faces of all $K_l$ subjects $N_k=25$  for each of the $L$ subgroups (Table~\ref{tab:ethnic-splits}). Next, we assigned subjects to a fold. To preserve balance across folds, we sorted subjects by the number of pairs and then started assigning to alternating folds from the one with the most samples. Note, this left no overlap in identity between folds. Later, a negative set from samples within the same subgroup randomly matched until the count met that of the positive. Finally, we doubled the number with negative pairs from across subgroups but in the same fold.
 
 \begin{figure}[t!] 
@@ -66,7 +66,7 @@ $ is the closeness of the $l^{th}$ pair.
 	\includegraphics[width=.75\linewidth]{figures/confusion.pdf}
 		\caption{\small{\textbf{Confusion matrix.} Error (Rank 1, \%) for all faces of \gls{bfw} vs. all others. Error concentrates intra-subgroup - consistent with the \gls{sdm} (Fig.~\ref{fig:detection-model}), as \gls{af} performs the worst, mostly confused by \gls{af}. Although race/ethnicity are challenging to define, this shows the subgroups are meaningful for \gls{fr}.}}
 		\label{fig:confusion} 
-		    \vspace{-6mm}
+%		    \vspace{-6mm}
 \end{figure} 
 
 \subsection{Human assessment}\label{subsec:human-assessment}
