@@ -1,9 +1,10 @@
 
 \section{Results and Analysis}
-A single \gls{cnn} was used as a means to control the experiments. For this, Sphereface~\cite{liu2017sphereface} trained on CASIA-Web~\cite{yi2014learning}, and evaluated on \gls{lfw}~\cite{LFWTech} (\%99.22 accuracy), encoded all of the faces.\footnote{\href{$https://github.com/clcarwin/sphereface\_pytorch$}{https://github.com/clcarwin/sphereface\_pytorch}} As reported in~\cite{wang2019racial}, \gls{lfw} has about a 13\%, 14\%, 3\%, and 70\% ratio in Asian, Black, Indian, and White, respectively. Furthermore, CASIA-Web is even more unbalanced (again, as reported in~\cite{wang2019racial}), with about  3\%, 11\%, 2\%, and 85\% for the same subgroups.
+A single \gls{cnn} was used as a means to control the experiments. For this, Sphereface~\cite{liu2017sphereface} trained on CASIA-Web~\cite{yi2014learning}, and evaluated on \gls{lfw}~\cite{LFWTech} (\%99.22 accuracy), encoded all of the faces.\footnote{\href{$https://github.com/clcarwin/sphereface\_pytorch$}{https://github.com/clcarwin/sphereface\_pytorch}} As reported in~\cite{wang2019racial}, \gls{lfw} has about 13\%, 14\%, 3\%, and 70\% ratio in Asian, Black, Indian, and White, respectively. Furthermore, CASIA-Web is even more unbalanced (again, as reported in~\cite{wang2018racial}), with about  3\%, 11\%, 2\%, and 85\% for the same subgroups.
 %\vspace{-4mm}
 \glsunset{det}
 % \subsection{\gls{det} analysis}
+\vspace{-5mm}
 \noindent\paragraph{\gls{det} analysis.}
 \gls{det} curves (5-fold, averaged) show per-subgroup trade-offs (Fig.~\ref{fig:detcurves}). Note that \gls{m} performs better than \gls{f}, precisely as one would expect from the tails of score-distributions for \emph{genuine} pairs (Fig.~\ref{fig:detection-model}). \Gls{af} and \gls{if} perform the worst.
 \glsunset{m}
@@ -28,11 +29,13 @@ A single \gls{cnn} was used as a means to control the experiments. For this, Sph
     \caption{SENet~\cite{hu2018squeeze}}
     \end{subfigure}
     \caption{\small{\textbf{\gls{det} curves for different CNNs}. \gls{fnr} (\%) (vertical) vs \gls{fpr}  (horizontal, log-scale) for VGG2~\cite{Cao18} models with different backbones (VGG16, Resnet50, SEnet50). Lower is better. For each plot, \gls{wm} is the top-performer, while \gls{af} is the worst. The ordering of the curves is roughly the same for each backbone.}}\label{fig:sdm-appendix-a}
-%    \vspace{-5mm}
+    \vspace{-5mm}
 \end{figure*}
+
+\vspace{-5mm}
 \noindent\paragraph{Score analysis.}
 % \subsection{Score analysis}
-Fig.~\ref{fig:detection-model} shows score distributions for faces of the same (\ie \emph{Genuine}) and different (\ie \emph{Imposter}) identity, with a subgroup per \gls{sdm} plot. Notice that score distributions for imposters tend to peak about zero for all subgroups, and with minimal deviation comparing modes of the different plots. On the other hand, the score distribution of the \emph{genuine} pairs varies across subgroups in location (\ie score value) and spread (\ie overall shape). Asian Fem
+Fig.~\ref{fig:detection-model} shows score distributions for faces of the same (\ie \emph{genuine}) and different (\ie \emph{imposter}) identity, with a subgroup per \gls{sdm} graph. Notice that score distributions for imposters tend to peak about zero for all subgroups, and with minimal deviation comparing modes of the different plots. On the other hand, the score distribution of the \emph{genuine} pairs varies across subgroups in location (\ie score value) and spread (\ie overall shape).
 Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast majority of errors occur in the intra-subgroup. It is interesting to note that while the definition of  each group  based on ethnicity and race may not be crisply defined, the confusion matrix indicates that in practice, the \gls{cnn} finds that the groups are effectively separate. The categories are, therefore, meaningful for \gls{fr}.
 
 
@@ -47,11 +50,11 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 
  
 \begin{table}[b!]
-%    \vspace{-4mm}
+    \vspace{-4mm}
 \glsunset{tar}
 \glsunset{far}
 \caption{\small{\textbf{\gls{tar} at intervals of \gls{far}}. \gls{far}, listed are the \gls{tar} scores for a global threshold (top) and the proposed category-based threshold (bottom). Higher is better.}}\label{tab:ethnicy-far} 
-% \vspace{-2mm}
+\vspace{-2mm}
 \begin{center}
 \scriptsize
 \begin{tabular}{l c c c c c}
@@ -79,7 +82,7 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 \end{center}
 \glsreset{tar}
 \glsreset{far}
-%  \vspace{-3mm}
+ \vspace{-3mm}
 
 \end{table}
 \glsunset{fpr}
@@ -87,14 +90,14 @@ Fig.~\ref{fig:confusion} shows the confusion matrix of the subgroups. A vast maj
 The gender-based \gls{det} curves show performances with a fixed threshold (dashed line). Other curves relate similarity (lines omitted to declutter). For many \gls{fr} applications, systems operate at the highest \gls{fpr} allowed. The constant threshold shows that a single threshold produces different operating points (\ie \gls{fpr}) across subgroups, which is undesirable. % The difference in \gls{fpr} is approximately a factor of two.
 If this is the case in an industrial system, one would expect a difference in about double the FPs reported based on subgroup alone. The potential ramifications of such a bias should be considered, which it has not as of lately-- even noticed in main-stream media ~\cite{england2019,snow2018}.
 
-To further demonstrate the extent of the problem, we follow settings typical for systems in practice. We set the desired \gls{fpr}, and then determine the percent difference, \ie desired versus actual (Fig.~\ref{fig:percent:difference}, \emph{top}). Furthermore, we mitigate this highly skewed phenomena by applying subgroup-specific thresholds (\emph{bottom}). By this, minimal error from the desired \gls{fpr}. In addition, where there is small error, the offset is balanced across subgroups.
+To further demonstrate the extent of the problem, we follow settings typical for systems in practice. We set the desired \gls{fpr}, and then determine the percent difference, \ie desired versus actual (Fig.~\ref{fig:percent:difference}, \emph{top}). Furthermore, we mitigate this highly skewed phenomenon by applying subgroup-specific thresholds (\emph{bottom}) - by this, minimal error from the desired \gls{fpr}. Besides where there is a small error, the offset is balanced across subgroups.
 
 % \subsubsection{Other \gls{cnn} models.}~\label{app:sec:other:models}
-%\vspace{-5mm}
+\vspace{-5mm}
 \noindent\paragraph{Model analysis.}
 Variations in optimal threshold exist across models (Fig.~\ref{fig:sdm-appendix-a}). Like in Fig.~\ref{fig:detcurves}, the \gls{det} curves for three \gls{cnn}-based models, each trained on VGG2 with softmax but with different backbones.\footnote{\href{https://github.com/rcmalli/keras-vggface}{https://github.com/rcmalli/keras-vggface}} Notice similar trends across subgroups and models, which is consistent with  Sphereface as well (Fig.~\ref{fig:detcurves}). For example, the plots generated with Sphereface and VggFace2 all have the \gls{wm} curve at the bottom (\ie best) and \gls{af} on top (\ie worst). Thus, the additional \gls{cnn}-based models demonstrate the same phenomena: proportional to the overall model performance, exact in the ordering of curves for each subgroup.
 
-%\vspace{-5mm}
+\vspace{-5mm}
 \noindent\paragraph{Verification threshold analysis.}%\subsection{Verification threshold} \label{subsec:analysis:verification}
 We seek to reduce the bias between subgroups. Such that an operating point (\ie \gls{fpr}) is constant across subgroups. To accomplish that, we used a per subgroup threshold. In \gls{fv}, we consider one image as the query, and all others as the test. For this, the ethnicity of the query image is assumed. We can then examine the \gls{det} curves and pick the best threshold per subgroup for a certain \gls{fpr}.
 
@@ -133,11 +136,13 @@ Even for lower \gls{far}, there are notable improvements, often of the order of 
  \end{tabular}
  }
  \end{center}
-% \vspace{-7mm}
+\vspace{-5mm}
 \end{table} 
 
-%\vspace{-5mm}
+\vspace{-5mm}
 \noindent\paragraph{Human evaluation analysis.}
 % \subsection{Human evaluation}
-Subjects of a subgroup likely have mostly been exposed to others of the same (Table~\ref{tab:humsn-eval-results} and Fig.~\ref{fig:human-eval}). Therefore, it is expected they would be best at labeling their own; similar for the same ethnicity, but another gender. Our findings concur. Each subgroup is best at labeling their type, and then second best at labeling the same ethnicity but opposite sex. Interestingly, each group of images is best tagged by the corresponding subgroup, with the second-best having the same ethnicity and opposite gender. On average, subgroups are comparable at labeling images. Analogous to the \gls{fr} system, performance ratings differ when analyzing within and across subgroups. In other words, performance on \gls{bfw} improved with subgroup-specific thresholds. Similarly, humans tend to better recognize individuals by facial cues of the same or similar demographics. Put differently, as the recognition performances drop with a global threshold optimized for one subgroup and deployed on another, human performance tends to drop when across subgroups (\ie performances drop for less familiar subgroups).
+Subjects of a subgroup likely have mostly been exposed to others of the same (Table~\ref{tab:humsn-eval-results} and Fig.~\ref{fig:human-eval}). Therefore, it is expected they would be best at labeling their own, similar to the same ethnicity, but another gender. Our findings concur. Each subgroup is best at labeling their type, and then second best at labeling the same ethnicity but opposite sex. 
+
+Interestingly, each group of images is best tagged by the corresponding subgroup, with the second-best having the same ethnicity and opposite gender. On average, subgroups are comparable at labeling images. Analogous to the \gls{fr} system, performance ratings differ when analyzing within and across subgroups. In other words, performance on \gls{bfw} improved with subgroup-specific thresholds. Similarly, humans tend to better recognize individuals by facial cues of the same or similar demographics. Put differently, as the recognition performances drop with a global threshold optimized for one subgroup and deployed on another, human performance tends to fall when across subgroups (\ie performances drop for less familiar subgroups).
  

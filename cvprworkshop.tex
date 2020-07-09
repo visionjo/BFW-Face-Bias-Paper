@@ -67,6 +67,7 @@
 \usepackage{balance}
 
 \usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{balance}
 
 
 \graphicspath{{figures/}} %Setting the graphicspath
@@ -242,7 +243,7 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 \begin{figure}[t!]
     \centering
     \includegraphics[width=.8\linewidth]{figures/montage.pdf}
-    \caption{\small{\textbf{\gls{bfw}.} Average face of the different subsets: \emph{top-left}: the entire \gls{bfw}; \emph{top-row} per race;  \emph{left-column}: per gender. The others represent the ethnicity and gender of the race and gender, respectively. Table~\ref{tab:ethnic-splits} defines the acronyms of subgroups.}}
+    \caption{\small{\textbf{\gls{bfw}.} Average face per subgroup: \emph{top-left}: the entire \gls{bfw}; \emph{top-row} per ethnicity;  \emph{left-column}: per gender. The others represent the ethnicity and gender, respectively. Table~\ref{tab:ethnic-splits} defines the acronyms of subgroups.}}
     \label{fig:avg-faces}
 \end{figure}
 
@@ -256,6 +257,7 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
        \centering
     \includegraphics[width=.95\linewidth]{figures/fpr_percent_diff-crop.pdf}
     \caption{\small{\textbf{Percent difference from intended \gls{fpr}.} \emph{Top:} $t_g$ yields \gls{fpr} the span as large as 2$\times$ (\ie 200\%) that intended (\ie \gls{wm} for 1e-4). Furthermore, \gls{f} subgroups tend to perform worse than intended for all cases (while \gls{m} tend to overshoot intended performance, with exception of \gls{im} in for \gls{fpr}=1e-4). \emph{Bottom:} Subgroup-specific thresholds reduces this difference to near zero, where there are small differences, the percent difference across different subgroups is fair (\ie FPR=1e-4).}}\label{fig:percent:difference}
+    \vspace{-4mm}
 \end{figure}
 
 \input{sections/analysis}
@@ -267,16 +269,18 @@ We reveal critical insights into problems of bias in state-of-the-art \gls{fr} s
 	\includegraphics[width=.55\linewidth] {figures/human_eval.pdf}
 		\caption{\small{\textbf{Human assessment (qualitative).} $\checkmark$ for \emph{match}; $\times$ for \emph{non-match}. Accuracy scores shown as bar plots. Humans are most successful at recognizing their own subgroup, with a few exceptions (\eg bottom).}}
 		\label{fig:human-eval} 
+		 \vspace{-5mm}
 \end{figure} 
 
 
-\glsresetall
+\glsreset{bfw}
 \section{Conclusion}
-We introduce a new data set \gls{bfw} with eight subgroups balanced across gender and ethnicity. With this, and upon highlighting the challenges and shortcomings of grouping subjects as a single subset, we provide evidence that forming subgroups is meaningful, as the FR algorithm rarely makes mistakes across subgroups. We used an \textit{off-the-shelf} Sphereface, hypothesizing this SOTA CNN suffers from bias because of the imbalanced train-set. Once established that the results do suffer from problems of bias, we observed that the same threshold across ethnic and gender subgroups leads to differences in the \gls{fpr} up to a factor of two. Also, the percent difference that seemingly the cause of the frenzy about bias in FR in main-stream media. Furthermore, we ameliorate these differences with a per-subgroup threshold, leveling out \gls{fpr}, and achieving a higher \gls{tpr}. We hypothesized that most humans grew among more than their own demographic and, therefore, effectively learn from imbalanced datasets-- a human evaluation validated that humans are biased, as most recognized their personal demographic best. The focused research findings presented here, along with the public database included, are extendable in vast ways. Thus, we see this as the slither to a much larger problem of bias in ML.
+We introduce the \gls{bfw} dataset with eight subgroups balanced across gender and ethnicity. With this, and upon highlighting the challenges and shortcomings of grouping subjects as a single subset, we provide evidence that forming subgroups is meaningful, as the FR algorithm rarely makes mistakes across subgroups. We used an \textit{off-the-shelf} Sphereface, hypothesizing this SOTA CNN suffers from bias because of the imbalanced train-set. Once established that the results do suffer from problems of bias, we observed that the same threshold across ethnic and gender subgroups leads to differences in the \gls{fpr} up to a factor of two. Also, we clearly showed notable percent differences in ratings across subgroups. Furthermore, we ameliorate these differences with a per-subgroup threshold, leveling out \gls{fpr}, and achieving a higher \gls{tpr}. We hypothesized that most humans grew among more than their own demographic and, therefore, effectively learn from imbalanced datasets. In essence, a human evaluation validated that humans are biased, as most recognized their personal demographic best. This research, along with the data and resources, are extendable in vast ways. Thus, this is just a sliver of the larger problem of bias in ML.
 
 
 
-{\scriptsize
+{\small
+\balance
 \bibliographystyle{ieee_fullname}
 \bibliography{references}
 }
